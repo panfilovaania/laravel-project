@@ -1,21 +1,22 @@
 <?php
 
-namespace App\Services;
+namespace App\Services\Service;
 
 use App\Dto\Service\CreateServiceRequestDto;
 use App\Dto\Service\CreateServiceResponseDto;
 use App\Dto\Service\ServiceDto;
 use App\Dto\Service\UpdateServiceResponseDto;
-use App\Repositories\ServiceRepo;
+use App\Repositories\ServiceRepo\ServiceRepoInterface;
+use Illuminate\Support\Collection;
 
-class ServiceService
+class ServiceService implements ServiceServiceInterface
 {
-    public function __construct(private ServiceRepo $serviceRepo)
+    public function __construct(private ServiceRepoInterface $serviceRepo)
     {
 
     }
 
-    public function getServices(): \Illuminate\Support\Collection
+    public function getServices(): Collection
     {
         return $this->serviceRepo->getServices();
     }

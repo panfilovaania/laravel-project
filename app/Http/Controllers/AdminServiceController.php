@@ -3,18 +3,17 @@
 namespace App\Http\Controllers;
 
 use App\Dto\Service\CreateServiceRequestDto;
-use App\Dto\Service\UpdateServiceRequestDto;
 use App\Http\Requests\CreateServiceRequest;
 use App\Http\Requests\UpdateServiceRequest;
 use App\Models\Service;
-use App\Services\ServiceService;
+use App\Services\Service\ServiceServiceInterface;
 use Illuminate\Http\Request;
 
 class AdminServiceController extends Controller
 {
     private $serviceService;
 
-    public function __construct(ServiceService $serviceService)
+    public function __construct(ServiceServiceInterface $serviceService)
     {
         $this->serviceService = $serviceService;
     }

@@ -1,13 +1,14 @@
 <?php
 
-namespace App\Repositories;
+namespace App\Repositories\ServiceRepo;
 
 use App\Models\Service;
 use Illuminate\Database\Eloquent\ModelNotFoundException;
+use Illuminate\Support\Collection;
 
-class ServiceRepo implements ServiceRepoInterface
+class EloquentServiceRepo implements ServiceRepoInterface
 {
-    public function getServices(): \Illuminate\Database\Eloquent\Collection
+    public function getServices(): Collection
     {
         return Service::all();
     }
