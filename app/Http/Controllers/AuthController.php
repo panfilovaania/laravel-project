@@ -3,9 +3,8 @@
 namespace App\Http\Controllers;
 
 use App\Http\Requests\LoginRequest;
-use App\Models\User;
 use App\Services\Auth\AuthServiceInterface;
-use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Log;
 
 class AuthController extends Controller
 {
@@ -22,12 +21,8 @@ class AuthController extends Controller
 
         $token = $this->authService->login($validated);
 
-        if (!$token) {
-            return response()->json([
-                'message' => 'Пользователь не найден.'
-            ], 401);
-        }
-        
+        Log::info("Пользователь {$validated['email']} вошел в систему");
+
         return response()->json(['token' => $token->plainTextToken]);
     }
 }

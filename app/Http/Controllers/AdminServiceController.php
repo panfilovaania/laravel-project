@@ -8,7 +8,6 @@ use App\Http\Requests\UpdateServiceRequest;
 use App\Models\Service;
 use App\Services\Service\ServiceServiceInterface;
 
-
 class AdminServiceController extends Controller
 {
     private $serviceService;
@@ -54,7 +53,7 @@ class AdminServiceController extends Controller
      */
     public function show(Service $service)
     {
-        $service = $this->serviceService->getServiceById($service->id);
+        // $service = $this->serviceService->getServiceById($service->id);
 
         return response()->json($service);
     }
