@@ -8,7 +8,6 @@ use App\Http\Requests\UpdateServiceRequest;
 use App\Models\Service;
 use App\Services\Service\ServiceServiceInterface;
 
-
 class AdminServiceController extends Controller
 {
     private $serviceService;
