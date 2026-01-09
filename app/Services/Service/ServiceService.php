@@ -3,66 +3,38 @@
 namespace App\Services\Service;
 
 use App\Dto\Service\CreateServiceRequestDto;
-use App\Dto\Service\CreateServiceResponseDto;
-use App\Dto\Service\ServiceDto;
-use App\Dto\Service\UpdateServiceResponseDto;
+use App\Models\Service;
 use App\Repositories\ServiceRepo\ServiceRepoInterface;
 use Illuminate\Support\Collection;
 
 class ServiceService implements ServiceServiceInterface
 {
     public function __construct(private ServiceRepoInterface $serviceRepo)
-    {
-
-    }
+    {}
 
     public function getServices(): Collection
     {
         return $this->serviceRepo->getServices();
     }
 
-    public function getServiceById(int $id): ServiceDto
+    public function getServiceById(int $id): Service
     {
-        $service = $this->serviceRepo->findById($id);
-
-        return new ServiceDto(
-            id: $service->id,
-            name: $service->name,
-            label: $service->label,
-            description: $service->description,
-            price: $service->price,
-            duration_minutes: $service->duration_minutes,
-            available: $service->available
-        );
+        return $this->serviceRepo->findById($id);
     }
 
-    public function createService(CreateServiceRequestDto $createServiceRequestDto): CreateServiceResponseDto
+    public function getServiceWithResources(Service $service): Service
     {
-        $newService = $this->serviceRepo->createService($createServiceRequestDto->toArray());
-
-        return new CreateServiceResponseDto(
-            id: $newService->id,
-            name: $newService->name,
-            label: $newService->label,
-            description: $newService->description,
-            price: $newService->price,
-            duration_minutes: $newService->duration_minutes,
-            available: $newService->available
-        );
+        return $this->serviceRepo->getServiceWithResources($service);
     }
 
-    public function updateService(int $id, array $data): UpdateServiceResponseDto 
+    public function createService(CreateServiceRequestDto $createServiceRequestDto): Service
     {
-        $updatedService = $this->serviceRepo->updateService($id, $data);
+        return $this->serviceRepo->createService($createServiceRequestDto->toArray());
+    }
 
-        return new UpdateServiceResponseDto (
-            name: $updatedService->name,
-            label: $updatedService->label,
-            description: $updatedService->description,
-            price: $updatedService->price,
-            duration_minutes: $updatedService->duration_minutes,
-            available: $updatedService->available
-        );
+    public function updateService(int $id, array $data): Service
+    {
+        return $this->serviceRepo->updateService($id, $data);
     }
 
     public function deleteService(int $id): bool

@@ -1,16 +1,12 @@
 <?php
 
-namespace App\Dto\Service;
+namespace App\Dto\Resource;
 
-class ServiceDto
+class CreateResourceRequestDto
 {
     public function __construct(
-        public int $id,
         public string $name,
         public string $label,
-        public string $description,
-        public int $price,
-        public int $duration_minutes,
         public bool $available
     ) {
         
@@ -19,12 +15,8 @@ class ServiceDto
     public function toArray()
     {
         return [
-            'id'=> $this->id,
             'name'=> $this->name,
             'label'=> $this->label,
-            'description'=> $this->description,
-            'price'=> $this->price,
-            'duration_minutes'=> $this->duration_minutes,
             'available'=> $this->available,
         ];
     }

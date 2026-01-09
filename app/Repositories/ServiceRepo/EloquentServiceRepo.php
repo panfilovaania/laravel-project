@@ -3,7 +3,6 @@
 namespace App\Repositories\ServiceRepo;
 
 use App\Models\Service;
-use Illuminate\Database\Eloquent\ModelNotFoundException;
 use Illuminate\Support\Collection;
 
 class EloquentServiceRepo implements ServiceRepoInterface
@@ -16,6 +15,11 @@ class EloquentServiceRepo implements ServiceRepoInterface
     public function findById(int $id): Service 
     {
         return Service::findOrFail($id);
+    }
+
+    public function getServiceWithResources(Service $service): Service 
+    {
+        return Service::with('resources')->findOrFail($service->id);
     }
 
     public function createService(array $data): Service

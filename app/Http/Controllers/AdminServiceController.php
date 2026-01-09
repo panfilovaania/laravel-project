@@ -54,9 +54,9 @@ class AdminServiceController extends Controller
      */
     public function show(Service $service)
     {
-        $serviceDto = $this->serviceService->getServiceById($service->id);
+        $service = $this->serviceService->getServiceById($service->id);
 
-        return response()->json($serviceDto);
+        return response()->json($service);
     }
 
     /**
@@ -84,5 +84,12 @@ class AdminServiceController extends Controller
         }
     
         return response()->noContent();
+    }
+
+    public function getServiceWithResources(Service $service)
+    {
+         $serviceWithResources = $this->serviceService->getServiceWithResources($service);
+
+        return response()->json($serviceWithResources);
     }
 }
