@@ -17,6 +17,11 @@ class EloquentServiceRepo implements ServiceRepoInterface
         return Service::findOrFail($id);
     }
 
+    public function getServiceWithResources(Service $service): Service 
+    {
+        return Service::with('resources')->findOrFail($service->id);
+    }
+
     public function createService(array $data): Service
     {
         return Service::create([

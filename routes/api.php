@@ -28,6 +28,14 @@ Route::prefix('admin')->middleware('auth:sanctum')->group(function () {
         Route::patch('/{resource}', [AdminResourceController::class, 'update']);
         Route::delete('/{resource}', [AdminResourceController::class, 'destroy']);
     });
+
+     Route::prefix('resources')->group(function () {
+        Route::get('/', [AdminResourceController::class, 'index']);
+        Route::get('/{resource}', [AdminResourceController::class, 'show'])->whereNumber('resource');
+        Route::post('/', [AdminResourceController::class, 'store']);
+        Route::patch('/{resource}', [AdminResourceController::class, 'update']);
+        Route::delete('/{resource}', [AdminResourceController::class, 'destroy']);
+    });
 });
 
 Route::prefix('users')->middleware('auth:sanctum')->group(function () {
