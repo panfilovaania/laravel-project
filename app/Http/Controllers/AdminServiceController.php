@@ -84,11 +84,4 @@ class AdminServiceController extends Controller
     
         return response()->noContent();
     }
-
-    public function getServiceWithResources(Service $service)
-    {
-         $serviceWithResources = $this->serviceService->getServiceWithResources($service);
-
-        return response()->json($serviceWithResources);
-    }
 }
