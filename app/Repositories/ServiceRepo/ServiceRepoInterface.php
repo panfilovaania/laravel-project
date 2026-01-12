@@ -9,8 +9,7 @@ interface ServiceRepoInterface
 {
     public function getServices(): Collection;
     public function findById(int $id): Service;
-    public function getServiceWithResources(Service $service): Service;
     public function createService(array $data): Service;
-    public function updateService(int $id, array $data): Service;
-    public function deleteService(int $id): bool;
+    public function updateService(Service $service, array $data): Service;
+    public function deleteService(Service $service): bool;
 }

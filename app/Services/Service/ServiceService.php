@@ -22,23 +22,18 @@ class ServiceService implements ServiceServiceInterface
         return $this->serviceRepo->findById($id);
     }
 
-    public function getServiceWithResources(Service $service): Service
-    {
-        return $this->serviceRepo->getServiceWithResources($service);
-    }
-
     public function createService(CreateServiceRequestDto $createServiceRequestDto): Service
     {
         return $this->serviceRepo->createService($createServiceRequestDto->toArray());
     }
 
-    public function updateService(int $id, array $data): Service
+    public function updateService(Service $service, array $data): Service
     {
-        return $this->serviceRepo->updateService($id, $data);
+        return $this->serviceRepo->updateService($service, $data);
     }
 
-    public function deleteService(int $id): bool
+    public function deleteService(Service $service): bool
     {
-        return $this->serviceRepo->deleteService($id);
+        return $this->serviceRepo->deleteService($service);
     }
 }

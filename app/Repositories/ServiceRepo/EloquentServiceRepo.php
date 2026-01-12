@@ -17,11 +17,6 @@ class EloquentServiceRepo implements ServiceRepoInterface
         return Service::findOrFail($id);
     }
 
-    public function getServiceWithResources(Service $service): Service 
-    {
-        return Service::with('resources')->findOrFail($service->id);
-    }
-
     public function createService(array $data): Service
     {
         return Service::create([
@@ -34,17 +29,15 @@ class EloquentServiceRepo implements ServiceRepoInterface
         ]);
     }
 
-    public function updateService(int $id, array $data): Service 
+    public function updateService(Service $service, array $data): Service 
     {
-        $service = Service::findOrFail($id);
-
         $service->update($data);
         
         return $service->fresh();
     }
 
-    public function deleteService(int $id): bool
+    public function deleteService(Service $service): bool
     {
-        return Service::findOrFail($id)->delete();
+        return $service->delete();
     }
 }
