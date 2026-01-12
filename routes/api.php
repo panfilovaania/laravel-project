@@ -29,7 +29,7 @@ Route::prefix('admin')->middleware('auth:sanctum')->group(function () {
         Route::delete('/{resource}', [AdminResourceController::class, 'destroy']);
     });
 
-     Route::prefix('resources')->group(function () {
+    Route::prefix('resources')->group(function () {
         Route::get('/', [AdminResourceController::class, 'index']);
         Route::get('/{resource}', [AdminResourceController::class, 'show'])->whereNumber('resource');
         Route::post('/', [AdminResourceController::class, 'store']);
