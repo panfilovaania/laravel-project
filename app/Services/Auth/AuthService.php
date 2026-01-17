@@ -2,6 +2,7 @@
 
 namespace App\Services\Auth;
 
+use App\Models\User;
 use App\Repositories\AuthRepo\AuthRepoInterface;
 
 class AuthService implements AuthServiceInterface
