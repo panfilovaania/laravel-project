@@ -16,5 +16,5 @@ interface ServiceServiceInterface
 
     public function updateService(Service $service, array $data): Service;
 
-    public function deleteService(Service $service): bool;
+    public function deleteService(Service $service): void;
 }
