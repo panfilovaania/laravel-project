@@ -21,14 +21,7 @@ class AuthController extends Controller
 
         $token = $this->authService->login($validated);
 
-        if (!$token)
-        {
-            return response()->json([
-                'message' => 'Пользователь не найден.'
-            ], 401);
-        }
-
-        Log::info("Пользователь {email} вошел в систему", ['email' => $validated['email']]);
+        Log::info("Пользователь {$validated['email']} вошел в систему");
 
         return response()->json(['token' => $token->plainTextToken]);
     }

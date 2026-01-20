@@ -6,10 +6,9 @@ use App\Models\User;
 
 class EloquentAuthRepo implements AuthRepoInterface
 {
-    public function findUserByCredentials(array $credentials): User
+    public function findUserByCredentials(string $email): User
     {
-        $user = User::where("email", $credentials['email'])
-                ->where("password", $credentials['password'])
+        $user = User::where("email", $email)
                 ->first();
                 
         return $user;

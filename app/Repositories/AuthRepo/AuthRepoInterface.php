@@ -7,5 +7,5 @@ use Illuminate\Support\Collection;
 
 interface AuthRepoInterface
 {
-    public function findUserByCredentials(array $credentials): User;
+    public function findUserByCredentials(string $email): User;
 }

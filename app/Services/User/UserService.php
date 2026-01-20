@@ -21,6 +21,10 @@ class UserService implements UserServiceInterface
 
     public function updateUser(User $user, array $data): User
     {
-        return $this->userRepo->updateUser($user, $data);
+        try {
+            return $this->userRepo->updateUser($user, $data);
+        } catch (\Exception $e) {
+            throw new \App\Exceptions\User\UserUpdateException($e->getMessage());
+        }
     }
 }
