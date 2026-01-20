@@ -3,18 +3,17 @@
 namespace App\Http\Controllers;
 
 use App\Dto\Service\CreateServiceRequestDto;
-use App\Dto\Service\UpdateServiceRequestDto;
 use App\Http\Requests\CreateServiceRequest;
 use App\Http\Requests\UpdateServiceRequest;
 use App\Models\Service;
-use App\Services\ServiceService;
-use Illuminate\Http\Request;
+use App\Services\Service\ServiceServiceInterface;
+
 
 class AdminServiceController extends Controller
 {
     private $serviceService;
 
-    public function __construct(ServiceService $serviceService)
+    public function __construct(ServiceServiceInterface $serviceService)
     {
         $this->serviceService = $serviceService;
     }
@@ -55,19 +54,19 @@ class AdminServiceController extends Controller
      */
     public function show(Service $service)
     {
-        $serviceDto = $this->serviceService->getServiceById($service->id);
+        $service = $this->serviceService->getServiceById($service->id);
 
-        return response()->json($serviceDto);
+        return response()->json($service);
     }
 
     /**
      * Update the specified resource in storage.
      */
-    public function update(UpdateServiceRequest $request, string $id)
+    public function update(UpdateServiceRequest $request, Service $service)
     {
         $validated = $request->validated();
 
-        $updatedService = $this->serviceService->updateService($id, $validated);
+        $updatedService = $this->serviceService->updateService($service, $validated);
 
         return response()->json($updatedService);
     }
@@ -75,13 +74,13 @@ class AdminServiceController extends Controller
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(string $id)
+    public function destroy(Service $service)
     {
-        $isDeleted = $this->serviceService->deleteService($id);
+        $isDeleted = $this->serviceService->deleteService($service);
 
         if (!$isDeleted) 
         {
-            return response()->json(['message' => "Сервис с идентификатором {$id} не найден"], 404);
+            return response()->json(['message' => "Сервис с идентификатором {$service->id} не найден"], 404);
         }
     
         return response()->noContent();

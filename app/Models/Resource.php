@@ -10,6 +10,12 @@ class Resource extends Model
 {
     use HasFactory;
 
+    protected $fillable = [
+        'name',
+        'label',
+        'available',
+    ];
+
     public function services(): BelongsToMany
     {
         return $this->belongsToMany(Service::class);
