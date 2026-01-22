@@ -54,7 +54,7 @@ class AdminServiceController extends Controller
      */
     public function show(Service $service)
     {
-        $service = $this->serviceService->getServiceById($service->id);
+        // $service = $this->serviceService->getServiceById($service->id);
 
         return response()->json($service);
     }
