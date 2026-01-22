@@ -2,24 +2,27 @@
 
 namespace App\Services\Auth;
 
+use App\Exceptions\Auth\InvalidCredentialsException;
 use App\Repositories\AuthRepo\AuthRepoInterface;
+use Illuminate\Support\Facades\Hash;
+use Laravel\Sanctum\NewAccessToken;
 
 class AuthService implements AuthServiceInterface
 {
     public function __construct(private AuthRepoInterface $authRepo)
     {}
 
-    public function login(array $credentials)
+    public function login(array $credentials): NewAccessToken
     {
-        $user = $this->authRepo->findUserByCredentials($credentials);
+        $user = $this->authRepo->findUserByCredentials($credentials['email']);
 
-        if ($user != null)
+        if (!$user || !Hash::check($credentials['password'], $user->password))
         {
-            $tokenName = $credentials['token_name'] ?? 'auth_token';
-            $token = $user->createToken($tokenName);
-
-            return $token;
+            throw new InvalidCredentialsException();
         }
-        return null;
+
+        $tokenName = $credentials['token_name'] ?? 'auth_token';
+
+        return $user->createToken($tokenName);        
     }
 }

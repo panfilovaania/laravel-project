@@ -18,9 +18,6 @@ class UserController extends Controller
      */
     public function index()
     {
-        $users = $this->userService->getUsers();
-
-        return response()->json($users);
     }
 
     // /**
@@ -36,7 +33,9 @@ class UserController extends Controller
      */
     public function show(User $user)
     {
-        
+        // $user = $this->userService->getUserById($user->id);
+
+        return response()->json($user);
     }
 
      /**
