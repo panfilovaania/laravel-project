@@ -3,8 +3,10 @@
 namespace App\Services\Auth;
 
 use App\Exceptions\Auth\InvalidCredentialsException;
+use App\Models\User;
 use App\Repositories\AuthRepo\AuthRepoInterface;
 use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Facades\Log;
 use Laravel\Sanctum\NewAccessToken;
 
 class AuthService implements AuthServiceInterface
@@ -18,6 +20,10 @@ class AuthService implements AuthServiceInterface
 
         if (!$user || !Hash::check($credentials['password'], $user->password))
         {
+            Log::channel('auth')->warning('Неверный логин или пароль.', [
+                'email' => $credentials['email'],
+            ]);
+
             throw new InvalidCredentialsException();
         }
 

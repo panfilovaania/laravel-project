@@ -3,7 +3,6 @@
 namespace App\Exceptions\Auth;
 
 use Exception;
-use Illuminate\Support\Facades\Log;
 
 class InvalidCredentialsException extends Exception
 {
@@ -12,10 +11,6 @@ class InvalidCredentialsException extends Exception
 
     public function report(): bool
     {
-        Log::warning($this->message, [
-            'email' => request('email'),
-        ]);
-        
         return true; 
     }
 }
