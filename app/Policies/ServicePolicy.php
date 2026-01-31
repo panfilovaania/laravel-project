@@ -4,12 +4,14 @@ namespace App\Policies;
 
 use App\Models\Service;
 use App\Models\User;
+use App\Services\RBACService\RBACServiceInterface;
 use App\Services\User\UserServiceInterface;
 use Illuminate\Auth\Access\Response;
 
 class ServicePolicy
 {
-     public function __construct(private UserServiceInterface $userService)
+     public function __construct(private UserServiceInterface $userService,
+        private RBACServiceInterface $RBACService)
     {}
     /**
      * Determine whether the user can view any models.
@@ -24,75 +26,58 @@ class ServicePolicy
      */
     public function view(User $user, Service $service): bool
     {
-        return true;
+        $canView = $this->RBACService->hasPermission($user, 'service', 'view');
+
+        return $canView;
     }
 
     /**
      * Determine whether the user can create models.
      */
-    public function create(User $user): Response
+    public function create(User $user): bool
     {
-        $isAdmin = collect($this->userService->getUserRoles($user))
-            ->firstWhere('name', 'admin') || 
-            collect($this->userService->getUserRoles($user))
-            ->firstWhere('name', 'super-admin');
-    
-        return $isAdmin
-            ? Response::allow()
-            : Response::deny('Доступ запрещен. Требуются права администратора.');
+        $canCreate = $this->RBACService->hasPermission($user, 'service', 'create');
+
+        return $canCreate;
     }
 
     /**
      * Determine whether the user can update the model.
      */
-    public function update(User $user, Service $service): Response
+    public function update(User $user, Service $service): bool
     {
-        $isAdmin = collect($this->userService->getUserRoles($user))
-            ->firstWhere('name', 'admin') || 
-            collect($this->userService->getUserRoles($user))
-            ->firstWhere('name', 'super-admin');
+        $canUpdate = $this->RBACService->hasPermission($user, 'service', 'update');
     
-        return $isAdmin
-            ? Response::allow()
-            : Response::deny('Доступ запрещен. Требуются права администратора.');
+        return $canUpdate;
     }
 
     /**
      * Determine whether the user can delete the model.
      */
-    public function delete(User $user, Service $service): Response
+    public function delete(User $user, Service $service): bool
     {
-        $isSuperAdmin = collect($this->userService->getUserRoles($user))
-            ->contains('name', 'super-admin');
+        $canDelete = $this->RBACService->hasPermission($user, 'service', 'delete');
     
-        return $isSuperAdmin
-            ? Response::allow()
-            : Response::deny('Доступ запрещен. Требуются права супер администратора.');
+        return $canDelete;
     }
 
     /**
      * Determine whether the user can restore the model.
      */
-    public function restore(User $user, Service $service): Response
+    public function restore(User $user, Service $service): bool
     {
-         $isSuperAdmin = collect($this->userService->getUserRoles($user))
-            ->contains('name', 'super-admin');
+        $canRestore = $this->RBACService->hasPermission($user, 'service', 'restore');
     
-        return $isSuperAdmin
-            ? Response::allow()
-            : Response::deny('Доступ запрещен. Требуются супер администратора.');
+        return $canRestore;
     }
 
     /**
      * Determine whether the user can permanently delete the model.
      */
-    public function forceDelete(User $user, Service $service): Response
+    public function forceDelete(User $user, Service $service): bool
     {
-         $isSuperAdmin = collect($this->userService->getUserRoles($user))
-            ->contains('name', 'super-admin');
+        $canForceDelete = $this->RBACService->hasPermission($user, 'service', 'forceDelete');
     
-        return $isSuperAdmin
-            ? Response::allow()
-            : Response::deny('Доступ запрещен. Требуются супер администратора.');
+        return $canForceDelete;
     }
 }
