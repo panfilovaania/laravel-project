@@ -7,6 +7,7 @@ use App\Exceptions\Service\ServiceOperationException;
 use App\Models\Service;
 use App\Repositories\ServiceRepo\ServiceRepoInterface;
 use Illuminate\Support\Collection;
+use Illuminate\Support\Facades\Log;
 
 class ServiceService implements ServiceServiceInterface
 {
@@ -25,9 +26,14 @@ class ServiceService implements ServiceServiceInterface
 
     public function createService(CreateServiceRequestDto $createServiceRequestDto): Service
     {
-         try {
+        try {
             return $this->serviceRepo->createService($createServiceRequestDto->toArray());
         } catch (\Exception $e) {
+            Log::channel('service')->error("Ошибка при создании сервиса: ", [
+                'message' => $e->getMessage(),
+                'input' => request()->all()
+            ]);
+
             throw new ServiceOperationException("Не удалось создать услугу: {$e->getMessage()}");
         }
     }
@@ -37,6 +43,10 @@ class ServiceService implements ServiceServiceInterface
         try {
             return $this->serviceRepo->updateService($service, $data);
         } catch (\Exception $e) {
+            Log::channel('service')->error("Ошибка при обновлении сервиса: ", [
+                'message' => $e->getMessage(),
+                'input' => request()->all()
+            ]);
             throw new ServiceOperationException("Ошибка при обновлении услуги {$service->id}");
         }
     }
@@ -44,6 +54,9 @@ class ServiceService implements ServiceServiceInterface
     public function deleteService(Service $service): void
     {
         if (!$this->serviceRepo->deleteService($service)) {
+            Log::channel('service')->error("Ошибка при удалении сервиса: ", [
+                'input' => request()->all()
+            ]);
             throw new ServiceOperationException("Не удалось удалить услугу");
         }
     }

@@ -2,12 +2,10 @@
 
 namespace App\Services\User;
 
-use App\Dto\Service\CreateServiceRequestDto;
-use App\Models\Role;
-use App\Models\Service;
+use App\Exceptions\User\UserUpdateException;
 use App\Models\User;
 use App\Repositories\UserRepo\UserRepoInterface;
-use Illuminate\Support\Collection;
+use Illuminate\Support\Facades\Log;
 
 class UserService implements UserServiceInterface
 {
@@ -24,7 +22,9 @@ class UserService implements UserServiceInterface
         try {
             return $this->userRepo->updateUser($user, $data);
         } catch (\Exception $e) {
-            throw new \App\Exceptions\User\UserUpdateException($e->getMessage());
+            Log::error("Ошибка обновления пользователя: {$e->getMessage()}");
+
+            throw new UserUpdateException($e->getMessage());
         }
     }
 }
