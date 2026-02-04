@@ -22,7 +22,7 @@ class CreateResourceRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'name' => 'required|unique:resources|string|max:10',
+            'name' => 'required|unique:resources|string|max:100',
             'label' => 'required|string|max:100',
             'available'=> 'boolean',
         ];

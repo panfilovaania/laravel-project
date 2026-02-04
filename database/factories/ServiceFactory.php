@@ -15,9 +15,9 @@ class ServiceFactory extends Factory
      * @return array<string, mixed>
      */
     public function definition(): array
-    {        
+    {       
         return [
-            'name' => $this->faker->word(),
+            'name' => $this->faker->word . '-service-' . time() . '-' . rand(1000, 9999),
             'label' => $this->faker->word(),
             'description' => $this->faker->sentence(5),
             'price' => $this->faker->numberBetween(300, 1000),

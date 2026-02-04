@@ -4,16 +4,20 @@ namespace App\Policies;
 
 use App\Models\Resource;
 use App\Models\User;
-use Illuminate\Auth\Access\Response;
+use App\Services\RBACService\RBACServiceInterface;
+use App\Services\User\UserServiceInterface;
 
 class ResourcePolicy
 {
+     public function __construct(private UserServiceInterface $userService,
+        private RBACServiceInterface $RBACService)
+    {}
     /**
      * Determine whether the user can view any models.
      */
     public function viewAny(User $user): bool
     {
-        return false;
+        return true;
     }
 
     /**
@@ -21,7 +25,9 @@ class ResourcePolicy
      */
     public function view(User $user, Resource $resource): bool
     {
-        return false;
+        $canView = $this->RBACService->hasPermission($user, 'resource', 'view');
+
+        return $canView;
     }
 
     /**
@@ -29,7 +35,9 @@ class ResourcePolicy
      */
     public function create(User $user): bool
     {
-        return false;
+        $canCreate = $this->RBACService->hasPermission($user, 'resource', 'create');
+
+        return $canCreate;
     }
 
     /**
@@ -37,7 +45,9 @@ class ResourcePolicy
      */
     public function update(User $user, Resource $resource): bool
     {
-        return false;
+        $canUpdate = $this->RBACService->hasPermission($user, 'resource', 'update');
+    
+        return $canUpdate;
     }
 
     /**
@@ -45,7 +55,9 @@ class ResourcePolicy
      */
     public function delete(User $user, Resource $resource): bool
     {
-        return false;
+        $canDelete = $this->RBACService->hasPermission($user, 'resource', 'delete');
+    
+        return $canDelete;
     }
 
     /**
@@ -53,7 +65,9 @@ class ResourcePolicy
      */
     public function restore(User $user, Resource $resource): bool
     {
-        return false;
+        $canRestore = $this->RBACService->hasPermission($user, 'resource', 'restore');
+    
+        return $canRestore;
     }
 
     /**
@@ -61,6 +75,8 @@ class ResourcePolicy
      */
     public function forceDelete(User $user, Resource $resource): bool
     {
-        return false;
+        $canForceDelete = $this->RBACService->hasPermission($user, 'resource', 'forceDelete');
+    
+        return $canForceDelete;
     }
 }

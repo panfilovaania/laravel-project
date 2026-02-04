@@ -14,7 +14,7 @@ interface ResourceServiceInterface
 
     public function createResource(CreateResourceRequestDto $createResourceRequestDto): Resource;
 
-    public function updateResource(int $id, array $data): Resource;
+    public function updateResource(Resource $resource, array $data): Resource;
 
-    public function deleteResource(int $id): bool;
+    public function deleteResource(Resource $resource): void;
 }

@@ -2,6 +2,9 @@
 
 namespace Database\Factories;
 
+use App\Models\Permission;
+use App\Models\Role;
+use App\Models\User;
 use Illuminate\Database\Eloquent\Factories\Factory;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Str;
@@ -30,6 +33,70 @@ class UserFactory extends Factory
             'phone' => $this->faker->numerify('+79#########'),
             'birthday' => $this->faker->date()
         ];
+    }
+
+    public function admin()
+    {
+        return $this->afterCreating(function (User $user) {
+            $adminRole = Role::firstOrCreate(
+                [
+                    'name' => 'admin',
+                    'label' => 'Администратор',
+                    'description' => 'Администратор системы',
+                ]
+            );
+            
+            $scopes = ['service', 'resource'];
+            $actions = ['create', 'viewAll', 'view', 'update'];
+            
+            foreach($scopes as $scope)
+            {
+                foreach($actions as $action)
+                {
+                    $permission = Permission::firstOrCreate([
+                        'scope' => $scope,
+                        'action' => $action,
+                        'label' => "{$scope}:{$action}"
+                    ]);
+
+                    $adminRole->permissions()->attach($permission);
+                }
+            }
+            
+            $user->roles()->attach($adminRole);
+        });
+    }
+
+    public function superAdmin()
+    {
+        return $this->afterCreating(function (User $user) {
+            $adminRole = Role::firstOrCreate(
+                [
+                    'name' => 'super-admin',
+                    'label' => 'Супер администратор',
+                    'description' => 'Супер администратор системы',
+                ]
+            );
+            
+            $scopes = ['service', 'resource'];
+            $actions = ['create', 'delete', 'restore', 'forceDelete', 'viewAll', 'view', 'update'];
+            
+            foreach($scopes as $scope)
+            {
+                foreach($actions as $action)
+                {
+                    $permission = Permission::firstOrCreate([
+                        'scope' => $scope,
+                        'action' => $action,
+                        'label' => "{$scope}:{$action}"
+                    ]);
+
+                    $adminRole->permissions()->attach($permission);
+                }
+            }
+            
+            $user->roles()->attach($adminRole);
+        });
     }
 
     /**

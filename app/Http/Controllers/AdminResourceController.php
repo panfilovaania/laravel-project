@@ -10,9 +10,11 @@ use App\Services\Resource\ResourceServiceInterface;
 
 class AdminResourceController extends Controller
 {
-    public function __construct(
-        private ResourceServiceInterface $resourceService)
+    private $resourceService;
+
+    public function __construct(ResourceServiceInterface $resourceService)
     {
+        $this->resourceService = $resourceService;
     }
 
     /**
@@ -31,7 +33,7 @@ class AdminResourceController extends Controller
     public function store(CreateResourceRequest $request)
     {
         $validated = $request->validated();
-
+        
         $resourceDto = new CreateResourceRequestDto(
             name: $validated['name'],
             label: $validated['label'],
@@ -48,19 +50,17 @@ class AdminResourceController extends Controller
      */
     public function show(Resource $resource)
     {
-        $resource = $this->resourceService->getResourceById($resource->id);
-
         return response()->json($resource);
     }
 
     /**
      * Update the specified resource in storage.
      */
-    public function update(UpdateResourceRequest $request, string $id)
+    public function update(UpdateResourceRequest $request, Resource $resource)
     {
         $validated = $request->validated();
 
-        $updatedResource = $this->resourceService->updateResource($id, $validated);
+        $updatedResource = $this->resourceService->updateResource($resource, $validated);
 
         return response()->json($updatedResource);
     }
@@ -68,14 +68,9 @@ class AdminResourceController extends Controller
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(string $id)
+    public function destroy(Resource $resource)
     {
-        $isDeleted = $this->resourceService->deleteResource($id);
-
-        if (!$isDeleted) 
-        {
-            return response()->json(['message' => "Ресурс с идентификатором {$id} не найден"], 404);
-        }
+        $this->resourceService->deleteResource($resource);
     
         return response()->noContent();
     }

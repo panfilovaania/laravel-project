@@ -151,6 +151,13 @@ return [
             'replace_placeholders' => true,
         ],
 
+        'resource' => [
+            'driver' => 'single',
+            'path' => storage_path('logs/resource.log'),
+            'level' => env('LOG_LEVEL', 'debug'),
+            'replace_placeholders' => true,
+        ],
+
         'user' => [
             'driver' => 'single',
             'path' => storage_path('logs/user.log'),
