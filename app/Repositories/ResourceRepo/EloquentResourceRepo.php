@@ -26,17 +26,15 @@ class EloquentResourceRepo implements ResourceRepoInterface
         ]);
     }
 
-    public function updateResource(int $id, array $data): Resource
+    public function updateResource(Resource $resource, array $data): Resource 
     {
-        $resource = Resource::findOrFail($id);
-
         $resource->update($data);
         
         return $resource->fresh();
     }
 
-    public function deleteResource(int $id): bool
+    public function deleteResource(Resource $resource): bool
     {
-        return Resource::findOrFail($id)->delete();
+        return $resource->delete();
     }
 }

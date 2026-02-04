@@ -76,12 +76,7 @@ class AdminServiceController extends Controller
      */
     public function destroy(Service $service)
     {
-        $isDeleted = $this->serviceService->deleteService($service);
-
-        if (!$isDeleted) 
-        {
-            return response()->json(['message' => "Сервис с идентификатором {$service->id} не найден"], 404);
-        }
+        $this->serviceService->deleteService($service);
     
         return response()->noContent();
     }

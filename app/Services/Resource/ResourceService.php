@@ -3,10 +3,11 @@
 namespace App\Services\Resource;
 
 use App\Dto\Resource\CreateResourceRequestDto;
+use App\Exceptions\Resource\ResourceOperationException;
 use App\Models\Resource;
 use App\Repositories\ResourceRepo\ResourceRepoInterface;
-use App\Services\Resource\ResourceServiceInterface;
 use Illuminate\Support\Collection;
+use Illuminate\Support\Facades\Log;
 
 class ResourceService implements ResourceServiceInterface
 {
@@ -25,16 +26,38 @@ class ResourceService implements ResourceServiceInterface
 
     public function createResource(CreateResourceRequestDto $createResourceRequestDto): Resource
     {
-        return $this->resourceRepo->createResource($createResourceRequestDto->toArray());
+        try {
+            return $this->resourceRepo->createResource($createResourceRequestDto->toArray());
+        } catch (\Exception $e) {
+            Log::channel('resource')->error("Ошибка при создании ресурса: ", [
+                'message' => $e->getMessage(),
+                'input' => request()->all()
+            ]);
+
+            throw new ResourceOperationException("Не удалось создать ресурс: {$e->getMessage()}");
+        }
     }
 
-    public function updateResource(int $id, array $data): Resource 
+    public function updateResource(Resource $resource, array $data): Resource
     {
-        return $this->resourceRepo->updateResource($id, $data);
+        try {
+            return $this->resourceRepo->updateResource($resource, $data);
+        } catch (\Exception $e) {
+            Log::channel('resource')->error("Ошибка при обновлении ресурса: ", [
+                'message' => $e->getMessage(),
+                'input' => request()->all()
+            ]);
+            throw new ResourceOperationException("Ошибка при обновлении ресурса {$resource->id}");
+        }
     }
 
-    public function deleteResource(int $id): bool
+    public function deleteResource(Resource $resource): void
     {
-        return $this->resourceRepo->deleteResource($id);
+        if (!$this->resourceRepo->deleteResource($resource)) {
+            Log::channel('resource')->error("Ошибка при удалении ресурса: ", [
+                'input' => request()->all()
+            ]);
+            throw new ResourceOperationException("Не удалось удалить ресурс");
+        }
     }
 }
