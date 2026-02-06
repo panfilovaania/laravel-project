@@ -5,6 +5,7 @@ use App\Http\Controllers\AdminServiceController;
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\RBACController;
 use App\Http\Controllers\UserController;
+use App\Http\Middleware\LocaleFromUrl;
 use Illuminate\Support\Facades\Route;
 use Illuminate\Support\Facades\Auth;
 
@@ -16,7 +17,8 @@ Route::prefix('rbac')->group(function () {
         Route::get('/can', [RBACController::class, 'hasPermission']);
 });
 
-Route::prefix('admin')->middleware('auth:sanctum')->group(function () {
+Route::prefix('{locale}/admin')->where(['locale' => 'en|ru'])
+    ->middleware(['auth:sanctum','locale'])->group(function () {
     Route::prefix('services')->name('admin.services.')->group(function () {
         Route::get('/', [AdminServiceController::class, 'index'])
             ->middleware('can:viewAny,App\Models\Service')

@@ -84,6 +84,8 @@ return [
 
     'faker_locale' => env('APP_FAKER_LOCALE', 'en_US'),
 
+    'supported_locales' => explode(',', (string) env('SUPPORTED_LOCALES', 'en')),
+
     /*
     |--------------------------------------------------------------------------
     | Encryption Key
