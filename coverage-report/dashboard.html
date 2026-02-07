@@ -1,0 +1,399 @@
+<!DOCTYPE html>
+<html lang="en">
+ <head>
+  <meta charset="UTF-8">
+  <title>Dashboard for /var/www/html/laravel-project/app</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link href="_css/bootstrap.min.css?v=12.5.0" rel="stylesheet" type="text/css">
+  <link href="_css/billboard.min.css?v=12.5.0" rel="stylesheet" type="text/css">
+  <link href="_css/style.css?v=12.5.0" rel="stylesheet" type="text/css">
+  <link href="_css/custom.css" rel="stylesheet" type="text/css">
+ </head>
+ <body>
+  <header>
+   <div class="container-fluid">
+    <div class="row">
+     <div class="col-md-12">
+      <nav aria-label="breadcrumb">
+       <ol class="breadcrumb">
+         <li class="breadcrumb-item"><a href="index.html">/var/www/html/laravel-project/app</a></li>
+         <li class="breadcrumb-item active">(Dashboard)</li>
+
+       </ol>
+      </nav>
+     </div>
+    </div>
+   </div>
+  </header>
+  <div class="container-fluid">
+   <div class="row">
+    <div class="col-md-12">
+     <h2>Classes</h2>
+    </div>
+   </div>
+   <div class="row">
+    <div class="col-md-6">
+     <h3>Coverage Distribution</h3>
+     <div id="classesCoverageDistribution" style="height: 300px;">
+       <svg></svg>
+     </div>
+    </div>
+    <div class="col-md-6">
+     <h3>Complexity</h3>
+     <div id="classComplexity" style="height: 300px;">
+       <svg></svg>
+     </div>
+    </div>
+   </div>
+   <div class="row">
+    <div class="col-md-6">
+     <h3 style="margin-top: 2rem;">Insufficient Coverage</h3>
+     <div class="scrollbox">
+      <table class="table">
+       <thead>
+        <tr>
+         <th>Class</th>
+         <th class="text-right">Coverage</th>
+        </tr>
+       </thead>
+       <tbody>
+       <tr><td><a href="Exceptions/Auth/InvalidCredentialsException.php.html#7">App\Exceptions\Auth\InvalidCredentialsException</a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="Exceptions/Resource/ResourceOperationException.php.html#7">App\Exceptions\Resource\ResourceOperationException</a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="Exceptions/Service/ServiceOperationException.php.html#7">App\Exceptions\Service\ServiceOperationException</a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="Exceptions/User/UserUpdateException.php.html#7">App\Exceptions\User\UserUpdateException</a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="Http/Controllers/AuthController.php.html#9">App\Http\Controllers\AuthController</a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="Http/Controllers/RBACController.php.html#10">App\Http\Controllers\RBACController</a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="Http/Controllers/UserController.php.html#9">App\Http\Controllers\UserController</a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="Http/Requests/HasPermissionRequest.php.html#7">App\Http\Requests\HasPermissionRequest</a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="Http/Requests/LoginRequest.php.html#7">App\Http\Requests\LoginRequest</a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="Http/Requests/UpdateUserRequest.php.html#7">App\Http\Requests\UpdateUserRequest</a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="Models/City.php.html#9">App\Models\City</a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="Models/Location.php.html#9">App\Models\Location</a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="Models/Resource.php.html#9">App\Models\Resource</a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="Models/Service.php.html#9">App\Models\Service</a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="Models/Timesheet.php.html#9">App\Models\Timesheet</a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="Models/TimesheetType.php.html#9">App\Models\TimesheetType</a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="Policies/UserPolicy.php.html#8">App\Policies\UserPolicy</a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="Repositories/AuthRepo/EloquentAuthRepo.php.html#7">App\Repositories\AuthRepo\EloquentAuthRepo</a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="Repositories/UserRepo/EloquentUserRepo.php.html#10">App\Repositories\UserRepo\EloquentUserRepo</a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="Services/Auth/AuthService.php.html#12">App\Services\Auth\AuthService</a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="Services/User/UserService.php.html#10">App\Services\User\UserService</a></td><td class="text-right">16%</td></tr>
+       <tr><td><a href="Services/Resource/ResourceService.php.html#12">App\Services\Resource\ResourceService</a></td><td class="text-right">22%</td></tr>
+       <tr><td><a href="Services/Service/ServiceService.php.html#12">App\Services\Service\ServiceService</a></td><td class="text-right">22%</td></tr>
+       <tr><td><a href="Models/Role.php.html#9">App\Models\Role</a></td><td class="text-right">50%</td></tr>
+       <tr><td><a href="Policies/ResourcePolicy.php.html#10">App\Policies\ResourcePolicy</a></td><td class="text-right">71%</td></tr>
+       <tr><td><a href="Policies/ServicePolicy.php.html#11">App\Policies\ServicePolicy</a></td><td class="text-right">71%</td></tr>
+
+       </tbody>
+      </table>
+     </div>
+    </div>
+    <div class="col-md-6">
+     <h3 style="margin-top: 2rem;">Project Risks</h3>
+     <div class="scrollbox">
+      <table class="table">
+       <thead>
+        <tr>
+         <th>Class</th>
+         <th class="text-right">Coverage</th>
+         <th class="text-right">Complexity</th>
+         <th class="text-right"><abbr title="Change Risk Anti-Patterns (CRAP) Index">CRAP</abbr></th>
+        </tr>
+       </thead>
+       <tbody>
+       <tr><td><a href="Services/Resource/ResourceService.php.html#12">App\Services\Resource\ResourceService</a></td><td class="text-right">22.7%</td><td class="text-right">9</td><td class="text-right">46</td></tr>
+       <tr><td><a href="Services/Service/ServiceService.php.html#12">App\Services\Service\ServiceService</a></td><td class="text-right">22.7%</td><td class="text-right">9</td><td class="text-right">46</td></tr>
+       <tr><td><a href="Services/Auth/AuthService.php.html#12">App\Services\Auth\AuthService</a></td><td class="text-right">0.0%</td><td class="text-right">4</td><td class="text-right">20</td></tr>
+       <tr><td><a href="Services/User/UserService.php.html#10">App\Services\User\UserService</a></td><td class="text-right">16.7%</td><td class="text-right">4</td><td class="text-right">13</td></tr>
+       <tr><td><a href="Http/Controllers/RBACController.php.html#10">App\Http\Controllers\RBACController</a></td><td class="text-right">0.0%</td><td class="text-right">3</td><td class="text-right">12</td></tr>
+
+       </tbody>
+      </table>
+     </div>
+    </div>
+   </div>
+   <div class="row">
+    <div class="col-md-12">
+     <h2 style="margin-top: 3rem;">Methods</h2>
+    </div>
+   </div>
+   <div class="row">
+    <div class="col-md-6">
+     <h3>Coverage Distribution</h3>
+     <div id="methodsCoverageDistribution" style="height: 300px;">
+       <svg></svg>
+     </div>
+    </div>
+    <div class="col-md-6">
+     <h3>Complexity</h3>
+     <div id="methodComplexity" style="height: 300px;">
+       <svg></svg>
+     </div>
+    </div>
+   </div>
+   <div class="row">
+    <div class="col-md-6">
+     <h3 style="margin-top: 2rem;">Insufficient Coverage</h3>
+     <div class="scrollbox">
+      <table class="table">
+       <thead>
+        <tr>
+         <th>Method</th>
+         <th class="text-right">Coverage</th>
+        </tr>
+       </thead>
+       <tbody>
+       <tr><td><a href="Exceptions/Auth/InvalidCredentialsException.php.html#12"><abbr title="App\Exceptions\Auth\InvalidCredentialsException::report">report</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="Exceptions/Resource/ResourceOperationException.php.html#11"><abbr title="App\Exceptions\Resource\ResourceOperationException::report">report</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="Exceptions/Service/ServiceOperationException.php.html#11"><abbr title="App\Exceptions\Service\ServiceOperationException::report">report</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="Exceptions/User/UserUpdateException.php.html#12"><abbr title="App\Exceptions\User\UserUpdateException::report">report</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="Http/Controllers/AuthController.php.html#13"><abbr title="App\Http\Controllers\AuthController::__construct">__construct</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="Http/Controllers/AuthController.php.html#18"><abbr title="App\Http\Controllers\AuthController::login">login</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="Http/Controllers/RBACController.php.html#14"><abbr title="App\Http\Controllers\RBACController::__construct">__construct</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="Http/Controllers/RBACController.php.html#19"><abbr title="App\Http\Controllers\RBACController::hasPermission">hasPermission</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="Http/Controllers/UserController.php.html#11"><abbr title="App\Http\Controllers\UserController::__construct">__construct</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="Http/Controllers/UserController.php.html#19"><abbr title="App\Http\Controllers\UserController::index">index</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="Http/Controllers/UserController.php.html#27"><abbr title="App\Http\Controllers\UserController::store">store</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="Http/Controllers/UserController.php.html#35"><abbr title="App\Http\Controllers\UserController::show">show</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="Http/Controllers/UserController.php.html#45"><abbr title="App\Http\Controllers\UserController::update">update</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="Http/Controllers/UserController.php.html#57"><abbr title="App\Http\Controllers\UserController::destroy">destroy</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="Http/Requests/HasPermissionRequest.php.html#12"><abbr title="App\Http\Requests\HasPermissionRequest::authorize">authorize</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="Http/Requests/HasPermissionRequest.php.html#22"><abbr title="App\Http\Requests\HasPermissionRequest::rules">rules</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="Http/Requests/LoginRequest.php.html#12"><abbr title="App\Http\Requests\LoginRequest::authorize">authorize</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="Http/Requests/LoginRequest.php.html#22"><abbr title="App\Http\Requests\LoginRequest::rules">rules</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="Http/Requests/UpdateUserRequest.php.html#12"><abbr title="App\Http\Requests\UpdateUserRequest::authorize">authorize</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="Http/Requests/UpdateUserRequest.php.html#22"><abbr title="App\Http\Requests\UpdateUserRequest::rules">rules</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="Models/City.php.html#13"><abbr title="App\Models\City::locations">locations</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="Models/Location.php.html#13"><abbr title="App\Models\Location::city">city</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="Models/Resource.php.html#19"><abbr title="App\Models\Resource::services">services</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="Models/Role.php.html#19"><abbr title="App\Models\Role::users">users</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="Models/Service.php.html#22"><abbr title="App\Models\Service::resources">resources</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="Models/Timesheet.php.html#13"><abbr title="App\Models\Timesheet::timesheetTypes">timesheetTypes</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="Models/TimesheetType.php.html#13"><abbr title="App\Models\TimesheetType::timesheet">timesheet</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="Policies/ResourcePolicy.php.html#66"><abbr title="App\Policies\ResourcePolicy::restore">restore</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="Policies/ResourcePolicy.php.html#76"><abbr title="App\Policies\ResourcePolicy::forceDelete">forceDelete</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="Policies/ServicePolicy.php.html#67"><abbr title="App\Policies\ServicePolicy::restore">restore</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="Policies/ServicePolicy.php.html#77"><abbr title="App\Policies\ServicePolicy::forceDelete">forceDelete</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="Policies/UserPolicy.php.html#13"><abbr title="App\Policies\UserPolicy::viewAny">viewAny</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="Policies/UserPolicy.php.html#21"><abbr title="App\Policies\UserPolicy::view">view</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="Policies/UserPolicy.php.html#29"><abbr title="App\Policies\UserPolicy::create">create</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="Policies/UserPolicy.php.html#37"><abbr title="App\Policies\UserPolicy::update">update</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="Policies/UserPolicy.php.html#45"><abbr title="App\Policies\UserPolicy::delete">delete</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="Policies/UserPolicy.php.html#53"><abbr title="App\Policies\UserPolicy::restore">restore</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="Policies/UserPolicy.php.html#61"><abbr title="App\Policies\UserPolicy::forceDelete">forceDelete</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="Repositories/AuthRepo/EloquentAuthRepo.php.html#9"><abbr title="App\Repositories\AuthRepo\EloquentAuthRepo::findUserByCredentials">findUserByCredentials</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="Repositories/ResourceRepo/EloquentResourceRepo.php.html#15"><abbr title="App\Repositories\ResourceRepo\EloquentResourceRepo::findById">findById</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="Repositories/ServiceRepo/EloquentServiceRepo.php.html#15"><abbr title="App\Repositories\ServiceRepo\EloquentServiceRepo::findById">findById</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="Repositories/UserRepo/EloquentUserRepo.php.html#12"><abbr title="App\Repositories\UserRepo\EloquentUserRepo::getUsers">getUsers</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="Repositories/UserRepo/EloquentUserRepo.php.html#17"><abbr title="App\Repositories\UserRepo\EloquentUserRepo::findById">findById</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="Repositories/UserRepo/EloquentUserRepo.php.html#22"><abbr title="App\Repositories\UserRepo\EloquentUserRepo::getUserRoles">getUserRoles</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="Repositories/UserRepo/EloquentUserRepo.php.html#27"><abbr title="App\Repositories\UserRepo\EloquentUserRepo::updateUser">updateUser</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="Repositories/UserRepo/EloquentUserRepo.php.html#34"><abbr title="App\Repositories\UserRepo\EloquentUserRepo::deleteService">deleteService</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="Services/Auth/AuthService.php.html#14"><abbr title="App\Services\Auth\AuthService::__construct">__construct</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="Services/Auth/AuthService.php.html#17"><abbr title="App\Services\Auth\AuthService::login">login</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="Services/Resource/ResourceService.php.html#22"><abbr title="App\Services\Resource\ResourceService::getResourceById">getResourceById</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="Services/Service/ServiceService.php.html#22"><abbr title="App\Services\Service\ServiceService::getServiceById">getServiceById</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="Services/User/UserService.php.html#15"><abbr title="App\Services\User\UserService::getUserById">getUserById</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="Services/User/UserService.php.html#20"><abbr title="App\Services\User\UserService::updateUser">updateUser</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="Services/Resource/ResourceService.php.html#27"><abbr title="App\Services\Resource\ResourceService::createResource">createResource</abbr></a></td><td class="text-right">14%</td></tr>
+       <tr><td><a href="Services/Resource/ResourceService.php.html#41"><abbr title="App\Services\Resource\ResourceService::updateResource">updateResource</abbr></a></td><td class="text-right">14%</td></tr>
+       <tr><td><a href="Services/Service/ServiceService.php.html#27"><abbr title="App\Services\Service\ServiceService::createService">createService</abbr></a></td><td class="text-right">14%</td></tr>
+       <tr><td><a href="Services/Service/ServiceService.php.html#41"><abbr title="App\Services\Service\ServiceService::updateService">updateService</abbr></a></td><td class="text-right">14%</td></tr>
+       <tr><td><a href="Services/Resource/ResourceService.php.html#54"><abbr title="App\Services\Resource\ResourceService::deleteResource">deleteResource</abbr></a></td><td class="text-right">20%</td></tr>
+       <tr><td><a href="Services/Service/ServiceService.php.html#54"><abbr title="App\Services\Service\ServiceService::deleteService">deleteService</abbr></a></td><td class="text-right">20%</td></tr>
+
+       </tbody>
+      </table>
+     </div>
+    </div>
+    <div class="col-md-6">
+     <h3 style="margin-top: 2rem;">Project Risks</h3>
+     <div class="scrollbox">
+      <table class="table">
+       <thead>
+        <tr>
+         <th>Method</th>
+         <th class="text-right">Coverage</th>
+         <th class="text-right">Complexity</th>
+         <th class="text-right"><abbr title="Change Risk Anti-Patterns (CRAP) Index">CRAP</abbr></th>
+        </tr>
+       </thead>
+       <tbody>
+       <tr><td><a href="Services/Auth/AuthService.php.html#17"><abbr title="App\Services\Auth\AuthService::login">login</abbr></a></td><td class="text-right">0.0%</td><td class="text-right">3</td><td class="text-right">12</td></tr>
+       <tr><td><a href="Http/Controllers/RBACController.php.html#19"><abbr title="App\Http\Controllers\RBACController::hasPermission">hasPermission</abbr></a></td><td class="text-right">0.0%</td><td class="text-right">2</td><td class="text-right">6</td></tr>
+       <tr><td><a href="Services/User/UserService.php.html#20"><abbr title="App\Services\User\UserService::updateUser">updateUser</abbr></a></td><td class="text-right">0.0%</td><td class="text-right">2</td><td class="text-right">6</td></tr>
+       <tr><td><a href="Services/Resource/ResourceService.php.html#27"><abbr title="App\Services\Resource\ResourceService::createResource">createResource</abbr></a></td><td class="text-right">14.3%</td><td class="text-right">2</td><td class="text-right">4</td></tr>
+       <tr><td><a href="Services/Resource/ResourceService.php.html#41"><abbr title="App\Services\Resource\ResourceService::updateResource">updateResource</abbr></a></td><td class="text-right">14.3%</td><td class="text-right">2</td><td class="text-right">4</td></tr>
+       <tr><td><a href="Services/Resource/ResourceService.php.html#54"><abbr title="App\Services\Resource\ResourceService::deleteResource">deleteResource</abbr></a></td><td class="text-right">20.0%</td><td class="text-right">2</td><td class="text-right">4</td></tr>
+       <tr><td><a href="Services/Service/ServiceService.php.html#27"><abbr title="App\Services\Service\ServiceService::createService">createService</abbr></a></td><td class="text-right">14.3%</td><td class="text-right">2</td><td class="text-right">4</td></tr>
+       <tr><td><a href="Services/Service/ServiceService.php.html#41"><abbr title="App\Services\Service\ServiceService::updateService">updateService</abbr></a></td><td class="text-right">14.3%</td><td class="text-right">2</td><td class="text-right">4</td></tr>
+       <tr><td><a href="Services/Service/ServiceService.php.html#54"><abbr title="App\Services\Service\ServiceService::deleteService">deleteService</abbr></a></td><td class="text-right">20.0%</td><td class="text-right">2</td><td class="text-right">4</td></tr>
+
+       </tbody>
+      </table>
+     </div>
+    </div>
+   </div>
+   <footer>
+    <hr/>
+    <p>
+     <small>Generated by <a href="https://github.com/sebastianbergmann/php-code-coverage" target="_top">php-code-coverage 12.5.0</a> using <a href="https://www.php.net/" target="_top">PHP 8.4.17</a> and <a href="https://phpunit.de/">PHPUnit 12.5.1</a> at Wed Feb 4 18:12:39 UTC 2026.</small>
+    </p>
+   </footer>
+  </div>
+  <script src="_js/billboard.pkgd.min.js?v=12.5.0" type="text/javascript"></script>
+  <script type="application/json" id="complexity_class">[[0,1,"Exceptions\/Auth\/InvalidCredentialsException.php.html#7","App\\Exceptions\\Auth\\InvalidCredentialsException","2"],[0,1,"Exceptions\/Resource\/ResourceOperationException.php.html#7","App\\Exceptions\\Resource\\ResourceOperationException","2"],[0,1,"Exceptions\/Service\/ServiceOperationException.php.html#7","App\\Exceptions\\Service\\ServiceOperationException","2"],[0,1,"Exceptions\/User\/UserUpdateException.php.html#7","App\\Exceptions\\User\\UserUpdateException","2"],[0,2,"Http\/Controllers\/AuthController.php.html#9","App\\Http\\Controllers\\AuthController","6"],[0,3,"Http\/Controllers\/RBACController.php.html#10","App\\Http\\Controllers\\RBACController","12"],[0,6,"Http\/Controllers\/UserController.php.html#9","App\\Http\\Controllers\\UserController","42"],[0,2,"Http\/Requests\/HasPermissionRequest.php.html#7","App\\Http\\Requests\\HasPermissionRequest","6"],[0,2,"Http\/Requests\/LoginRequest.php.html#7","App\\Http\\Requests\\LoginRequest","6"],[0,2,"Http\/Requests\/UpdateUserRequest.php.html#7","App\\Http\\Requests\\UpdateUserRequest","6"],[0,1,"Models\/City.php.html#9","App\\Models\\City","2"],[0,1,"Models\/Location.php.html#9","App\\Models\\Location","2"],[0,1,"Models\/Resource.php.html#9","App\\Models\\Resource","2"],[0,1,"Models\/Service.php.html#9","App\\Models\\Service","2"],[0,1,"Models\/Timesheet.php.html#9","App\\Models\\Timesheet","2"],[0,1,"Models\/TimesheetType.php.html#9","App\\Models\\TimesheetType","2"],[0,7,"Policies\/UserPolicy.php.html#8","App\\Policies\\UserPolicy","56"],[0,1,"Repositories\/AuthRepo\/EloquentAuthRepo.php.html#7","App\\Repositories\\AuthRepo\\EloquentAuthRepo","2"],[0,5,"Repositories\/UserRepo\/EloquentUserRepo.php.html#10","App\\Repositories\\UserRepo\\EloquentUserRepo","30"],[0,4,"Services\/Auth\/AuthService.php.html#12","App\\Services\\Auth\\AuthService","20"],[16.666666666666664,4,"Services\/User\/UserService.php.html#10","App\\Services\\User\\UserService","13.26"],[22.727272727272727,9,"Services\/Resource\/ResourceService.php.html#12","App\\Services\\Resource\\ResourceService","46.37"],[22.727272727272727,9,"Services\/Service\/ServiceService.php.html#12","App\\Services\\Service\\ServiceService","46.37"],[50,2,"Models\/Role.php.html#9","App\\Models\\Role","2.50"],[71.42857142857143,8,"Policies\/ResourcePolicy.php.html#10","App\\Policies\\ResourcePolicy","9.49"],[71.42857142857143,8,"Policies\/ServicePolicy.php.html#11","App\\Policies\\ServicePolicy","9.49"],[90,5,"Repositories\/ResourceRepo\/EloquentResourceRepo.php.html#8","App\\Repositories\\ResourceRepo\\EloquentResourceRepo","5.03"],[92.3076923076923,5,"Repositories\/ServiceRepo\/EloquentServiceRepo.php.html#8","App\\Repositories\\ServiceRepo\\EloquentServiceRepo","5.01"],[100,2,"Dto\/Resource\/CreateResourceRequestDto.php.html#5","App\\Dto\\Resource\\CreateResourceRequestDto","2"],[100,2,"Dto\/Service\/CreateServiceRequestDto.php.html#5","App\\Dto\\Service\\CreateServiceRequestDto","2"],[100,6,"Http\/Controllers\/AdminResourceController.php.html#11","App\\Http\\Controllers\\AdminResourceController","6"],[100,6,"Http\/Controllers\/AdminServiceController.php.html#12","App\\Http\\Controllers\\AdminServiceController","6"],[100,0,"Http\/Controllers\/Controller.php.html#5","App\\Http\\Controllers\\Controller","0"],[100,2,"Http\/Requests\/CreateResourceRequest.php.html#7","App\\Http\\Requests\\CreateResourceRequest","2"],[100,2,"Http\/Requests\/CreateServiceRequest.php.html#7","App\\Http\\Requests\\CreateServiceRequest","2"],[100,2,"Http\/Requests\/UpdateResourceRequest.php.html#7","App\\Http\\Requests\\UpdateResourceRequest","2"],[100,2,"Http\/Requests\/UpdateServiceRequest.php.html#7","App\\Http\\Requests\\UpdateServiceRequest","2"],[100,0,"Models\/Entity.php.html#8","App\\Models\\Entity","0"],[100,1,"Models\/Permission.php.html#9","App\\Models\\Permission","1"],[100,0,"Models\/Quota.php.html#8","App\\Models\\Quota","0"],[100,2,"Models\/User.php.html#12","App\\Models\\User","2"],[100,2,"Providers\/AppServiceProvider.php.html#7","App\\Providers\\AppServiceProvider","2"],[100,2,"Providers\/AuthServiceProvider.php.html#9","App\\Providers\\AuthServiceProvider","2"],[100,2,"Providers\/RBACServiceProvider.php.html#9","App\\Providers\\RBACServiceProvider","2"],[100,2,"Providers\/ReposServiceProvider.php.html#15","App\\Providers\\ReposServiceProvider","2"],[100,2,"Providers\/ResourceServiceProvider.php.html#9","App\\Providers\\ResourceServiceProvider","2"],[100,2,"Providers\/ServiceServiceProvider.php.html#9","App\\Providers\\ServiceServiceProvider","2"],[100,2,"Providers\/UserServiceProvider.php.html#9","App\\Providers\\UserServiceProvider","2"],[100,1,"Services\/RBACService\/RBACService.php.html#8","App\\Services\\RBACService\\RBACService","1"]]</script>
+  <script type="application/json" id="complexity_method">[[0,1,"Exceptions\/Auth\/InvalidCredentialsException.php.html#12","App\\Exceptions\\Auth\\InvalidCredentialsException::report","2"],[0,1,"Exceptions\/Resource\/ResourceOperationException.php.html#11","App\\Exceptions\\Resource\\ResourceOperationException::report","2"],[0,1,"Exceptions\/Service\/ServiceOperationException.php.html#11","App\\Exceptions\\Service\\ServiceOperationException::report","2"],[0,1,"Exceptions\/User\/UserUpdateException.php.html#12","App\\Exceptions\\User\\UserUpdateException::report","2"],[0,1,"Http\/Controllers\/AuthController.php.html#13","App\\Http\\Controllers\\AuthController::__construct","2"],[0,1,"Http\/Controllers\/AuthController.php.html#18","App\\Http\\Controllers\\AuthController::login","2"],[0,1,"Http\/Controllers\/RBACController.php.html#14","App\\Http\\Controllers\\RBACController::__construct","2"],[0,2,"Http\/Controllers\/RBACController.php.html#19","App\\Http\\Controllers\\RBACController::hasPermission","6"],[0,1,"Http\/Controllers\/UserController.php.html#11","App\\Http\\Controllers\\UserController::__construct","2"],[0,1,"Http\/Controllers\/UserController.php.html#19","App\\Http\\Controllers\\UserController::index","2"],[0,1,"Http\/Controllers\/UserController.php.html#27","App\\Http\\Controllers\\UserController::store","2"],[0,1,"Http\/Controllers\/UserController.php.html#35","App\\Http\\Controllers\\UserController::show","2"],[0,1,"Http\/Controllers\/UserController.php.html#45","App\\Http\\Controllers\\UserController::update","2"],[0,1,"Http\/Controllers\/UserController.php.html#57","App\\Http\\Controllers\\UserController::destroy","2"],[0,1,"Http\/Requests\/HasPermissionRequest.php.html#12","App\\Http\\Requests\\HasPermissionRequest::authorize","2"],[0,1,"Http\/Requests\/HasPermissionRequest.php.html#22","App\\Http\\Requests\\HasPermissionRequest::rules","2"],[0,1,"Http\/Requests\/LoginRequest.php.html#12","App\\Http\\Requests\\LoginRequest::authorize","2"],[0,1,"Http\/Requests\/LoginRequest.php.html#22","App\\Http\\Requests\\LoginRequest::rules","2"],[0,1,"Http\/Requests\/UpdateUserRequest.php.html#12","App\\Http\\Requests\\UpdateUserRequest::authorize","2"],[0,1,"Http\/Requests\/UpdateUserRequest.php.html#22","App\\Http\\Requests\\UpdateUserRequest::rules","2"],[0,1,"Models\/City.php.html#13","App\\Models\\City::locations","2"],[0,1,"Models\/Location.php.html#13","App\\Models\\Location::city","2"],[0,1,"Models\/Resource.php.html#19","App\\Models\\Resource::services","2"],[0,1,"Models\/Role.php.html#19","App\\Models\\Role::users","2"],[0,1,"Models\/Service.php.html#22","App\\Models\\Service::resources","2"],[0,1,"Models\/Timesheet.php.html#13","App\\Models\\Timesheet::timesheetTypes","2"],[0,1,"Models\/TimesheetType.php.html#13","App\\Models\\TimesheetType::timesheet","2"],[0,1,"Policies\/ResourcePolicy.php.html#66","App\\Policies\\ResourcePolicy::restore","2"],[0,1,"Policies\/ResourcePolicy.php.html#76","App\\Policies\\ResourcePolicy::forceDelete","2"],[0,1,"Policies\/ServicePolicy.php.html#67","App\\Policies\\ServicePolicy::restore","2"],[0,1,"Policies\/ServicePolicy.php.html#77","App\\Policies\\ServicePolicy::forceDelete","2"],[0,1,"Policies\/UserPolicy.php.html#13","App\\Policies\\UserPolicy::viewAny","2"],[0,1,"Policies\/UserPolicy.php.html#21","App\\Policies\\UserPolicy::view","2"],[0,1,"Policies\/UserPolicy.php.html#29","App\\Policies\\UserPolicy::create","2"],[0,1,"Policies\/UserPolicy.php.html#37","App\\Policies\\UserPolicy::update","2"],[0,1,"Policies\/UserPolicy.php.html#45","App\\Policies\\UserPolicy::delete","2"],[0,1,"Policies\/UserPolicy.php.html#53","App\\Policies\\UserPolicy::restore","2"],[0,1,"Policies\/UserPolicy.php.html#61","App\\Policies\\UserPolicy::forceDelete","2"],[0,1,"Repositories\/AuthRepo\/EloquentAuthRepo.php.html#9","App\\Repositories\\AuthRepo\\EloquentAuthRepo::findUserByCredentials","2"],[0,1,"Repositories\/ResourceRepo\/EloquentResourceRepo.php.html#15","App\\Repositories\\ResourceRepo\\EloquentResourceRepo::findById","2"],[0,1,"Repositories\/ServiceRepo\/EloquentServiceRepo.php.html#15","App\\Repositories\\ServiceRepo\\EloquentServiceRepo::findById","2"],[0,1,"Repositories\/UserRepo\/EloquentUserRepo.php.html#12","App\\Repositories\\UserRepo\\EloquentUserRepo::getUsers","2"],[0,1,"Repositories\/UserRepo\/EloquentUserRepo.php.html#17","App\\Repositories\\UserRepo\\EloquentUserRepo::findById","2"],[0,1,"Repositories\/UserRepo\/EloquentUserRepo.php.html#22","App\\Repositories\\UserRepo\\EloquentUserRepo::getUserRoles","2"],[0,1,"Repositories\/UserRepo\/EloquentUserRepo.php.html#27","App\\Repositories\\UserRepo\\EloquentUserRepo::updateUser","2"],[0,1,"Repositories\/UserRepo\/EloquentUserRepo.php.html#34","App\\Repositories\\UserRepo\\EloquentUserRepo::deleteService","2"],[0,1,"Services\/Auth\/AuthService.php.html#14","App\\Services\\Auth\\AuthService::__construct","2"],[0,3,"Services\/Auth\/AuthService.php.html#17","App\\Services\\Auth\\AuthService::login","12"],[0,1,"Services\/Resource\/ResourceService.php.html#22","App\\Services\\Resource\\ResourceService::getResourceById","2"],[0,1,"Services\/Service\/ServiceService.php.html#22","App\\Services\\Service\\ServiceService::getServiceById","2"],[0,1,"Services\/User\/UserService.php.html#15","App\\Services\\User\\UserService::getUserById","2"],[0,2,"Services\/User\/UserService.php.html#20","App\\Services\\User\\UserService::updateUser","6"],[14.285714285714285,2,"Services\/Resource\/ResourceService.php.html#27","App\\Services\\Resource\\ResourceService::createResource","4.52"],[14.285714285714285,2,"Services\/Resource\/ResourceService.php.html#41","App\\Services\\Resource\\ResourceService::updateResource","4.52"],[14.285714285714285,2,"Services\/Service\/ServiceService.php.html#27","App\\Services\\Service\\ServiceService::createService","4.52"],[14.285714285714285,2,"Services\/Service\/ServiceService.php.html#41","App\\Services\\Service\\ServiceService::updateService","4.52"],[20,2,"Services\/Resource\/ResourceService.php.html#54","App\\Services\\Resource\\ResourceService::deleteResource","4.05"],[20,2,"Services\/Service\/ServiceService.php.html#54","App\\Services\\Service\\ServiceService::deleteService","4.05"],[100,1,"Dto\/Resource\/CreateResourceRequestDto.php.html#7","App\\Dto\\Resource\\CreateResourceRequestDto::__construct","1"],[100,1,"Dto\/Resource\/CreateResourceRequestDto.php.html#15","App\\Dto\\Resource\\CreateResourceRequestDto::toArray","1"],[100,1,"Dto\/Service\/CreateServiceRequestDto.php.html#7","App\\Dto\\Service\\CreateServiceRequestDto::__construct","1"],[100,1,"Dto\/Service\/CreateServiceRequestDto.php.html#18","App\\Dto\\Service\\CreateServiceRequestDto::toArray","1"],[100,1,"Http\/Controllers\/AdminResourceController.php.html#15","App\\Http\\Controllers\\AdminResourceController::__construct","1"],[100,1,"Http\/Controllers\/AdminResourceController.php.html#23","App\\Http\\Controllers\\AdminResourceController::index","1"],[100,1,"Http\/Controllers\/AdminResourceController.php.html#33","App\\Http\\Controllers\\AdminResourceController::store","1"],[100,1,"Http\/Controllers\/AdminResourceController.php.html#51","App\\Http\\Controllers\\AdminResourceController::show","1"],[100,1,"Http\/Controllers\/AdminResourceController.php.html#59","App\\Http\\Controllers\\AdminResourceController::update","1"],[100,1,"Http\/Controllers\/AdminResourceController.php.html#71","App\\Http\\Controllers\\AdminResourceController::destroy","1"],[100,1,"Http\/Controllers\/AdminServiceController.php.html#16","App\\Http\\Controllers\\AdminServiceController::__construct","1"],[100,1,"Http\/Controllers\/AdminServiceController.php.html#24","App\\Http\\Controllers\\AdminServiceController::index","1"],[100,1,"Http\/Controllers\/AdminServiceController.php.html#34","App\\Http\\Controllers\\AdminServiceController::store","1"],[100,1,"Http\/Controllers\/AdminServiceController.php.html#55","App\\Http\\Controllers\\AdminServiceController::show","1"],[100,1,"Http\/Controllers\/AdminServiceController.php.html#65","App\\Http\\Controllers\\AdminServiceController::update","1"],[100,1,"Http\/Controllers\/AdminServiceController.php.html#77","App\\Http\\Controllers\\AdminServiceController::destroy","1"],[100,1,"Http\/Requests\/CreateResourceRequest.php.html#12","App\\Http\\Requests\\CreateResourceRequest::authorize","1"],[100,1,"Http\/Requests\/CreateResourceRequest.php.html#22","App\\Http\\Requests\\CreateResourceRequest::rules","1"],[100,1,"Http\/Requests\/CreateServiceRequest.php.html#12","App\\Http\\Requests\\CreateServiceRequest::authorize","1"],[100,1,"Http\/Requests\/CreateServiceRequest.php.html#22","App\\Http\\Requests\\CreateServiceRequest::rules","1"],[100,1,"Http\/Requests\/UpdateResourceRequest.php.html#12","App\\Http\\Requests\\UpdateResourceRequest::authorize","1"],[100,1,"Http\/Requests\/UpdateResourceRequest.php.html#22","App\\Http\\Requests\\UpdateResourceRequest::rules","1"],[100,1,"Http\/Requests\/UpdateServiceRequest.php.html#12","App\\Http\\Requests\\UpdateServiceRequest::authorize","1"],[100,1,"Http\/Requests\/UpdateServiceRequest.php.html#22","App\\Http\\Requests\\UpdateServiceRequest::rules","1"],[100,1,"Models\/Permission.php.html#19","App\\Models\\Permission::roles","1"],[100,1,"Models\/Role.php.html#24","App\\Models\\Role::permissions","1"],[100,1,"Models\/User.php.html#43","App\\Models\\User::casts","1"],[100,1,"Models\/User.php.html#50","App\\Models\\User::roles","1"],[100,1,"Policies\/ResourcePolicy.php.html#12","App\\Policies\\ResourcePolicy::__construct","1"],[100,1,"Policies\/ResourcePolicy.php.html#18","App\\Policies\\ResourcePolicy::viewAny","1"],[100,1,"Policies\/ResourcePolicy.php.html#26","App\\Policies\\ResourcePolicy::view","1"],[100,1,"Policies\/ResourcePolicy.php.html#36","App\\Policies\\ResourcePolicy::create","1"],[100,1,"Policies\/ResourcePolicy.php.html#46","App\\Policies\\ResourcePolicy::update","1"],[100,1,"Policies\/ResourcePolicy.php.html#56","App\\Policies\\ResourcePolicy::delete","1"],[100,1,"Policies\/ServicePolicy.php.html#13","App\\Policies\\ServicePolicy::__construct","1"],[100,1,"Policies\/ServicePolicy.php.html#19","App\\Policies\\ServicePolicy::viewAny","1"],[100,1,"Policies\/ServicePolicy.php.html#27","App\\Policies\\ServicePolicy::view","1"],[100,1,"Policies\/ServicePolicy.php.html#37","App\\Policies\\ServicePolicy::create","1"],[100,1,"Policies\/ServicePolicy.php.html#47","App\\Policies\\ServicePolicy::update","1"],[100,1,"Policies\/ServicePolicy.php.html#57","App\\Policies\\ServicePolicy::delete","1"],[100,1,"Providers\/AppServiceProvider.php.html#12","App\\Providers\\AppServiceProvider::register","1"],[100,1,"Providers\/AppServiceProvider.php.html#20","App\\Providers\\AppServiceProvider::boot","1"],[100,1,"Providers\/AuthServiceProvider.php.html#14","App\\Providers\\AuthServiceProvider::register","1"],[100,1,"Providers\/AuthServiceProvider.php.html#22","App\\Providers\\AuthServiceProvider::boot","1"],[100,1,"Providers\/RBACServiceProvider.php.html#14","App\\Providers\\RBACServiceProvider::register","1"],[100,1,"Providers\/RBACServiceProvider.php.html#22","App\\Providers\\RBACServiceProvider::boot","1"],[100,1,"Providers\/ReposServiceProvider.php.html#20","App\\Providers\\ReposServiceProvider::register","1"],[100,1,"Providers\/ReposServiceProvider.php.html#31","App\\Providers\\ReposServiceProvider::boot","1"],[100,1,"Providers\/ResourceServiceProvider.php.html#14","App\\Providers\\ResourceServiceProvider::register","1"],[100,1,"Providers\/ResourceServiceProvider.php.html#22","App\\Providers\\ResourceServiceProvider::boot","1"],[100,1,"Providers\/ServiceServiceProvider.php.html#14","App\\Providers\\ServiceServiceProvider::register","1"],[100,1,"Providers\/ServiceServiceProvider.php.html#22","App\\Providers\\ServiceServiceProvider::boot","1"],[100,1,"Providers\/UserServiceProvider.php.html#14","App\\Providers\\UserServiceProvider::register","1"],[100,1,"Providers\/UserServiceProvider.php.html#22","App\\Providers\\UserServiceProvider::boot","1"],[100,1,"Repositories\/ResourceRepo\/EloquentResourceRepo.php.html#10","App\\Repositories\\ResourceRepo\\EloquentResourceRepo::getResources","1"],[100,1,"Repositories\/ResourceRepo\/EloquentResourceRepo.php.html#20","App\\Repositories\\ResourceRepo\\EloquentResourceRepo::createResource","1"],[100,1,"Repositories\/ResourceRepo\/EloquentResourceRepo.php.html#29","App\\Repositories\\ResourceRepo\\EloquentResourceRepo::updateResource","1"],[100,1,"Repositories\/ResourceRepo\/EloquentResourceRepo.php.html#36","App\\Repositories\\ResourceRepo\\EloquentResourceRepo::deleteResource","1"],[100,1,"Repositories\/ServiceRepo\/EloquentServiceRepo.php.html#10","App\\Repositories\\ServiceRepo\\EloquentServiceRepo::getServices","1"],[100,1,"Repositories\/ServiceRepo\/EloquentServiceRepo.php.html#20","App\\Repositories\\ServiceRepo\\EloquentServiceRepo::createService","1"],[100,1,"Repositories\/ServiceRepo\/EloquentServiceRepo.php.html#32","App\\Repositories\\ServiceRepo\\EloquentServiceRepo::updateService","1"],[100,1,"Repositories\/ServiceRepo\/EloquentServiceRepo.php.html#39","App\\Repositories\\ServiceRepo\\EloquentServiceRepo::deleteService","1"],[100,1,"Services\/RBACService\/RBACService.php.html#10","App\\Services\\RBACService\\RBACService::hasPermission","1"],[100,1,"Services\/Resource\/ResourceService.php.html#14","App\\Services\\Resource\\ResourceService::__construct","1"],[100,1,"Services\/Resource\/ResourceService.php.html#17","App\\Services\\Resource\\ResourceService::getResources","1"],[100,1,"Services\/Service\/ServiceService.php.html#14","App\\Services\\Service\\ServiceService::__construct","1"],[100,1,"Services\/Service\/ServiceService.php.html#17","App\\Services\\Service\\ServiceService::getServices","1"],[100,1,"Services\/User\/UserService.php.html#12","App\\Services\\User\\UserService::__construct","1"]]</script>
+  <script type="text/javascript" defer>
+  const barLabels = [
+    '0%',
+    '0-10%',
+    '10-20%',
+    '20-30%',
+    '30-40%',
+    '40-50%',
+    '50-60%',
+    '60-70%',
+    '70-80%',
+    '80-90%',
+    '90-100%',
+    '100%'
+  ];
+  const barConfig = (name, fullName, values) => ({
+    axis: {
+      x: {
+        type: "category",
+        categories: barLabels,
+      },
+      y: {
+        label: {
+          text: `#${name}`,
+          position: 'outer-top',
+        },
+      },
+    },
+    bindto: `#${name}CoverageDistribution`,
+    data: {
+      columns: [
+        [fullName].concat(values),
+      ],
+      colors: {
+        [fullName]: "rgba(69, 114, 167, 0.75)",
+      },
+      type: "bar",
+    },
+    bar: {
+      width: {
+        ratio: 0.9,
+      },
+    },
+    grid: {
+      focus: {
+        show: false,
+      },
+      x: {
+        show: true,
+      },
+      y: {
+        show: true,
+      },
+    },
+    legend: {
+      show: false,
+    },
+    tooltip: {
+      contents: function (data) {
+        return `<table class="bb-tooltip"><tbody>
+            <tr><th colspan="2">Coverage ${barLabels[data[0].x]}</th></tr>
+            <tr><td class="value">${data[0].value} ${name}</td></tr>
+          </tbody></table>`;
+      },
+      grouped: false,
+    },
+  });
+  bb.generate(
+    barConfig('classes', "Class Coverage", [20,0,1,2,0,0,1,0,2,0,2,21])
+  );
+  bb.generate(
+    barConfig('methods', "Method Coverage", [52,0,4,2,0,0,0,0,0,0,0,68])
+  );
+
+  const scatterConfig = (name, complexityData) => ({
+    axis: {
+      x: {
+        label: {
+          text: 'Code Coverage (in percent)',
+          position: 'outer-right',
+        },
+        tick: {
+          values: [0, 20, 40, 60, 80, 100],
+        },
+      },
+      y: {
+        label: {
+          text: 'Cyclomatic Complexity',
+          position: 'outer-top',
+        },
+        min: 0,
+        padding: {
+          bottom: 0,
+          top: 5,
+        },
+      },
+    },
+    bindto: `#${name}Complexity`,
+    data: {
+      columns: [
+        ["complexity_x"].concat(complexityData.map(d => d[0])),
+        ["complexity"].concat(complexityData.map(d => d[1])),
+      ],
+      onclick: function(data, element) {
+        window.location = complexityData[data.index][2];
+      },
+      type: "scatter",
+      xs: {
+        "complexity": "complexity_x",
+      },
+    },
+    grid: {
+      focus: {
+        show: true,
+        y: true,
+      },
+      x: {
+        show: true,
+      },
+      y: {
+        show: true,
+      },
+    },
+    legend: {
+      show: false,
+    },
+    tooltip: {
+      contents: function (data) {
+        const coverage = Math.round(data[0].x);
+        const complexity = data[0].value;
+        const targetName = complexityData[data[0].index][3];
+        const crap = complexityData[data[0].index][4];
+        return `<table class="bb-tooltip"><tbody>
+            <tr><th colspan="2">${targetName}</th></tr>
+            <tr class="bb-tooltip-name-complexity"><td>Coverage</td><td class="name">${coverage}%</td></tr>
+            <tr class="bb-tooltip-name-complexity"><td>Complexity</td><td class="value">${complexity}</td></tr>
+            <tr class="bb-tooltip-name-complexity"><td>Crap</td><td class="value">${crap}</td></tr>
+          </tbody></table>`;
+      },
+      grouped: false,
+    },
+  });
+  const classComplexityData = JSON.parse(document.getElementById('complexity_class').textContent);
+  bb.generate(
+    scatterConfig("class", classComplexityData)
+  );
+  const methodComplexityData = JSON.parse(document.getElementById('complexity_method').textContent);
+  bb.generate(
+    scatterConfig("method", methodComplexityData),
+  );
+  </script>
+ </body>
+</html>
