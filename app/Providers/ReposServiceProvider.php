@@ -6,7 +6,7 @@ use App\Repositories\AuthRepo\AuthRepoInterface;
 use App\Repositories\AuthRepo\EloquentAuthRepo;
 use App\Repositories\ResourceRepo\EloquentResourceRepo;
 use App\Repositories\ResourceRepo\ResourceRepoInterface;
-use App\Repositories\ServiceRepo\EloquentServiceRepo;
+use App\Repositories\ServiceRepo\CacheEloquentServiceRepo;
 use App\Repositories\UserRepo\EloquentUserRepo;
 use App\Repositories\ServiceRepo\ServiceRepoInterface;
 use App\Repositories\UserRepo\UserRepoInterface;
@@ -19,7 +19,7 @@ class ReposServiceProvider extends ServiceProvider
      */
     public function register(): void
     {
-        $this->app->bind(ServiceRepoInterface::class, EloquentServiceRepo::class);
+        $this->app->bind(ServiceRepoInterface::class, CacheEloquentServiceRepo::class);
         $this->app->bind(ResourceRepoInterface::class, EloquentResourceRepo::class);
         $this->app->bind(UserRepoInterface::class, EloquentUserRepo::class);
         $this->app->bind(AuthRepoInterface::class, EloquentAuthRepo::class);
