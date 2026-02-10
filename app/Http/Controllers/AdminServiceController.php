@@ -7,7 +7,7 @@ use App\Http\Requests\CreateServiceRequest;
 use App\Http\Requests\UpdateServiceRequest;
 use App\Models\Service;
 use App\Services\Service\ServiceServiceInterface;
-
+use Illuminate\Support\Facades\Cache;
 
 class AdminServiceController extends Controller
 {
@@ -23,7 +23,7 @@ class AdminServiceController extends Controller
      */
     public function index()
     {
-        $services = $this->serviceService->getServices();
+        $services = Cache::remember('services', 300, fn() => $this->serviceService->getServices());
 
         return response()->json($services);
     }
@@ -45,6 +45,10 @@ class AdminServiceController extends Controller
         );
 
         $createdService = $this->serviceService->createService($serviceDto);
+
+        Cache::forget('services');
+
+        Cache::remember('services', 300, fn() => $this->serviceService->getServices());
 
         return response()->json($createdService);
     }
@@ -68,6 +72,10 @@ class AdminServiceController extends Controller
 
         $updatedService = $this->serviceService->updateService($service, $validated);
 
+        Cache::forget('services');
+
+        Cache::remember('services', 300, fn() => $this->serviceService->getServices());
+
         return response()->json($updatedService);
     }
 
@@ -77,6 +85,10 @@ class AdminServiceController extends Controller
     public function destroy(Service $service)
     {
         $this->serviceService->deleteService($service);
+
+        Cache::forget('services');
+
+        Cache::remember('services', 300, fn() => $this->serviceService->getServices());
     
         return response()->noContent();
     }
