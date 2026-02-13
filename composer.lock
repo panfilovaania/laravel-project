@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "de23bb96dc61af52acf2c88c24e79ecd",
+    "content-hash": "5c055c6b6ec1a95472bc154e0568d961",
     "packages": [
         {
             "name": "brick/math",
@@ -2578,6 +2578,42 @@
                 }
             ],
             "time": "2025-10-18T11:10:27+00:00"
+        },
+        {
+            "name": "packages/placeholder-image-generator",
+            "version": "dev-hw11",
+            "dist": {
+                "type": "path",
+                "url": "packages/placeholder-image-generator",
+                "reference": "827be609c5367c486bf13b7d875fd36355633783"
+            },
+            "require": {
+                "ext-gd": "*",
+                "php": "^8.0"
+            },
+            "type": "library",
+            "extra": {
+                "laravel": {
+                    "providers": [
+                        "PlaceholderImageGenerator\\PlaceholderImageGeneratorServiceProvider"
+                    ]
+                }
+            },
+            "autoload": {
+                "psr-4": {
+                    "PlaceholderImageGenerator\\": "src/"
+                }
+            },
+            "authors": [
+                {
+                    "name": "panfilovaania",
+                    "email": "panfilovaania@mail.ru"
+                }
+            ],
+            "description": "Placeholder image generator",
+            "transport-options": {
+                "relative": true
+            }
         },
         {
             "name": "phpoption/phpoption",
@@ -8474,8 +8510,10 @@
         }
     ],
     "aliases": [],
-    "minimum-stability": "stable",
-    "stability-flags": {},
+    "minimum-stability": "dev",
+    "stability-flags": {
+        "packages/placeholder-image-generator": 20
+    },
     "prefer-stable": true,
     "prefer-lowest": false,
     "platform": {

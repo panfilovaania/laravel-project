@@ -1,0 +1,27 @@
+{
+    "name": "packages/placeholder-image-generator",
+    "description": "Placeholder image generator",
+    "type": "library",
+    "autoload": {
+        "psr-4": {
+            "PlaceholderImageGenerator\\": "src/"
+        }
+    },
+    "authors": [
+        {
+            "name": "panfilovaania",
+            "email": "panfilovaania@mail.ru"
+        }
+    ],
+    "extra": {
+        "laravel": {
+            "providers": [
+                "PlaceholderImageGenerator\\PlaceholderImageGeneratorServiceProvider"
+            ]
+        }
+    },
+    "require": {
+        "php": "^8.0",
+        "ext-gd": "*"
+    }
+}
