@@ -5,8 +5,10 @@ namespace App\Http\Controllers;
 use App\Dto\Service\CreateServiceRequestDto;
 use App\Http\Requests\CreateServiceRequest;
 use App\Http\Requests\UpdateServiceRequest;
+use App\Jobs\SendNotificationJob;
 use App\Models\Service;
 use App\Services\Service\ServiceServiceInterface;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Cache;
 
 class AdminServiceController extends Controller
@@ -46,11 +48,19 @@ class AdminServiceController extends Controller
 
         $createdService = $this->serviceService->createService($serviceDto);
 
-        Cache::forget('services');
+        if($createdService->exists())
+        {
+            Cache::forget('services');
+            Cache::remember('services', 300, fn() => $this->serviceService->getServices());
 
-        Cache::remember('services', 300, fn() => $this->serviceService->getServices());
+            SendNotificationJob::dispatch(Auth::user(), $createdService);
 
-        return response()->json($createdService);
+            return response()->json($createdService);
+        }
+        else
+        {
+            return response("При создании услуги произошла ошибка");
+        }
     }
 
     /**

@@ -130,7 +130,6 @@ return [
         'telegram' => [
             'driver' => 'monolog',
             'handler' => \Monolog\Handler\TelegramBotHandler::class,
-            'level' => 'error',
             'with' => [
                 'apiKey' => env('TELEGRAM_API_KEY'),
                 'channel' => env('TELEGRAM_CHAT_ID'),
