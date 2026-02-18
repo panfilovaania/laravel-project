@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\CreateUserRequest;
 use App\Http\Requests\UpdateUserRequest;
 use App\Models\User;
 use App\Services\User\UserServiceInterface;
@@ -18,15 +19,21 @@ class UserController extends Controller
      */
     public function index()
     {
+        $users = $this->userService->getUsers();
 
+        return response()->json($users);
     }
 
     // /**
     //  * Store a newly created resource in storage.
     //  */
-    public function store()
+    public function store(CreateUserRequest $request)
     {
+        $validated = $request->validated();
         
+        $createdUser = $this->userService->createUser($validated);
+
+        return response()->json($createdUser);
     }
 
     /**
@@ -54,8 +61,10 @@ class UserController extends Controller
     // /**
     //  * Remove the specified resource from storage.
     //  */
-    public function destroy()
+     public function destroy(User $user)
     {
-       
+        $this->userService->deleteUser($user);
+    
+        return response()->noContent();
     }
 }

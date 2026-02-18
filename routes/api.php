@@ -58,10 +58,16 @@ Route::prefix('admin')
 });
 
 Route::prefix('users')->middleware('auth:sanctum')->group(function () {
+        Route::get('/', [UserController::class, 'index'])
+            ->name('index');
         Route::get('/{user}', [UserController::class, 'show'])->whereNumber('user')
             ->middleware('can:view,user');
+        Route::post('/', [UserController::class, 'store'])
+            ->name('store');
         Route::patch('/{user}', [UserController::class, 'update'])->whereNumber('user')
             ->middleware('can:update,user');
+        Route::delete('/{user}', [UserController::class, 'destroy'])->whereNumber('user')
+            ->name('destroy');
 });
 
 Route::get('/img/{w}/{h}/{color?}', function ($w, $h, $color = 'cccccc', PlaceholderImageGeneratorService $generator) {

@@ -24,6 +24,11 @@ class EloquentUserRepo implements UserRepoInterface
         return $user->roles()->get();
     }
 
+    public function createUser(User $user): User
+    {
+        return User::create($user);
+    }
+
     public function updateUser(User $user, array $data): User
     {
         $user->update($data);
@@ -31,8 +36,8 @@ class EloquentUserRepo implements UserRepoInterface
         return $user->fresh();
     }
 
-    public function deleteService(int $id): bool
+    public function deleteUser(User $user): bool
     {
-        return Service::findOrFail($id)->delete();
+        return $user->delete();
     }
 }
