@@ -23,7 +23,7 @@ class AdminServiceController extends Controller
      */
     public function index()
     {
-        $services = Cache::remember('services', 300, fn() => $this->serviceService->getServices());
+        $services = $this->serviceService->getServices();
 
         return response()->json($services);
     }
@@ -45,10 +45,6 @@ class AdminServiceController extends Controller
         );
 
         $createdService = $this->serviceService->createService($serviceDto);
-
-        Cache::forget('services');
-
-        Cache::remember('services', 300, fn() => $this->serviceService->getServices());
 
         return response()->json($createdService);
     }
@@ -72,10 +68,6 @@ class AdminServiceController extends Controller
 
         $updatedService = $this->serviceService->updateService($service, $validated);
 
-        Cache::forget('services');
-
-        Cache::remember('services', 300, fn() => $this->serviceService->getServices());
-
         return response()->json($updatedService);
     }
 
@@ -85,10 +77,6 @@ class AdminServiceController extends Controller
     public function destroy(Service $service)
     {
         $this->serviceService->deleteService($service);
-
-        Cache::forget('services');
-
-        Cache::remember('services', 300, fn() => $this->serviceService->getServices());
     
         return response()->noContent();
     }

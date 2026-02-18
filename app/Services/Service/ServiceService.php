@@ -24,10 +24,10 @@ class ServiceService implements ServiceServiceInterface
         return $this->serviceRepo->findById($id);
     }
 
-    public function createService(CreateServiceRequestDto $createServiceRequestDto): Service
+    public function createService(CreateServiceRequestDto $dto): Service
     {
         try {
-            return $this->serviceRepo->createService($createServiceRequestDto->toArray());
+            return $this->serviceRepo->createService($dto->toArray());
         } catch (\Exception $e) {
             Log::channel('service')->error("Ошибка при создании сервиса: ", [
                 'message' => $e->getMessage(),
