@@ -8,4 +8,5 @@ return [
     App\Providers\ResourceServiceProvider::class,
     App\Providers\UserServiceProvider::class,
     App\Providers\RBACServiceProvider::class,
+    App\Providers\BookingServiceProvider::class,
 ];

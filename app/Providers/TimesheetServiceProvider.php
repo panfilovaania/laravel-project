@@ -2,18 +2,18 @@
 
 namespace App\Providers;
 
-use App\Services\RBAC\RBACService;
-use App\Services\RBAC\RBACServiceInterface;
+use App\Services\Timesheet\TimesheetService;
+use App\Services\Timesheet\TimesheetServiceInterface;
 use Illuminate\Support\ServiceProvider;
 
-class RBACServiceProvider extends ServiceProvider
+class TimesheetServiceProvider extends ServiceProvider
 {
     /**
      * Register any application services.
      */
     public function register(): void
     {
-        $this->app->bind(RBACServiceInterface::class, RBACService::class);
+        $this->app->bind(TimesheetServiceInterface::class, TimesheetService::class);
     }
 
     /**

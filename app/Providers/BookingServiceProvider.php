@@ -2,18 +2,18 @@
 
 namespace App\Providers;
 
-use App\Services\RBAC\RBACService;
-use App\Services\RBAC\RBACServiceInterface;
+use App\Services\Booking\BookingService;
+use App\Services\Booking\BookingServiceInterface;
 use Illuminate\Support\ServiceProvider;
 
-class RBACServiceProvider extends ServiceProvider
+class BookingServiceProvider extends ServiceProvider
 {
     /**
      * Register any application services.
      */
     public function register(): void
     {
-        $this->app->bind(RBACServiceInterface::class, RBACService::class);
+        $this->app->bind(BookingServiceInterface::class, BookingService::class);
     }
 
     /**

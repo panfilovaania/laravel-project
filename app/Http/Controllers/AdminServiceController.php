@@ -7,7 +7,6 @@ use App\Http\Requests\CreateServiceRequest;
 use App\Http\Requests\UpdateServiceRequest;
 use App\Models\Service;
 use App\Services\Service\ServiceServiceInterface;
-use Illuminate\Support\Facades\Cache;
 
 class AdminServiceController extends Controller
 {

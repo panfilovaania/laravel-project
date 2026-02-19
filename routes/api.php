@@ -3,9 +3,11 @@
 use App\Http\Controllers\AdminResourceController;
 use App\Http\Controllers\AdminServiceController;
 use App\Http\Controllers\AuthController;
+use App\Http\Controllers\BookingController;
 use App\Http\Controllers\RBACController;
 use App\Http\Controllers\UserController;
 use App\Http\Middleware\LocaleFromUrl;
+use App\Models\Booking;
 use Illuminate\Support\Facades\Route;
 use Illuminate\Support\Facades\Auth;
 use PlaceholderImageGenerator\PlaceholderImageGeneratorService;
@@ -72,4 +74,18 @@ Route::prefix('users')->middleware('auth:sanctum')->group(function () {
 
 Route::get('/img/{w}/{h}/{color?}', function ($w, $h, $color = 'cccccc', PlaceholderImageGeneratorService $generator) {
     return $generator->makeResponse((int)$w, (int)$h, $color);
+});
+
+Route::prefix('bookings')->group(function () {
+        Route::get('/', [BookingController::class, 'index'])
+            ->name('index');
+        Route::get('/{booking}', [BookingController::class, 'show'])->whereNumber('booking')
+            // ->middleware('can:view,user')
+            ;
+        Route::post('/', [BookingController::class, 'store'])
+            ->name('store');
+        // Route::patch('/{user}', [UserController::class, 'update'])->whereNumber('user')
+        //     ->middleware('can:update,user');
+        // Route::delete('/{user}', [UserController::class, 'destroy'])->whereNumber('user')
+        //     ->name('destroy');
 });

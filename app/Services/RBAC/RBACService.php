@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Services\RBACService;
+namespace App\Services\RBAC;
 
 use App\Models\Permission;
 use App\Models\User;
