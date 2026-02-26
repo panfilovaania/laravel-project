@@ -2,10 +2,12 @@
 
 namespace App\Http\Controllers;
 
+use App\Dto\User\CreateUserRequestDto;
 use App\Http\Requests\CreateUserRequest;
 use App\Http\Requests\UpdateUserRequest;
 use App\Models\User;
 use App\Services\User\UserServiceInterface;
+use Illuminate\Support\Facades\Hash;
 
 class UserController extends Controller
 {
@@ -30,8 +32,16 @@ class UserController extends Controller
     public function store(CreateUserRequest $request)
     {
         $validated = $request->validated();
+
+        $dto = new CreateUserRequestDto(
+            name: $validated['name'],
+            email: $validated['email'],
+            password: Hash::make($validated['password']),
+            phone: $validated['phone'],
+            birthday: $validated['birthday']
+        );
         
-        $createdUser = $this->userService->createUser($validated);
+        $createdUser = $this->userService->createUser($dto);
 
         return response()->json($createdUser);
     }

@@ -10,8 +10,17 @@ class Timesheet extends Model
 {
     use HasFactory;
 
-    public function timesheetTypes(): HasMany
+    protected $fillable = [
+        'entity_type_id',
+        'timesheet_status_id',
+        'entity_id',
+        'date',
+        'start_time',
+        'end_time',
+    ];
+
+    public function timesheetStatuses(): HasMany
     {
-        return $this->hasMany(TimesheetType::class);
+        return $this->hasMany(TimesheetStatus::class);
     }
 }

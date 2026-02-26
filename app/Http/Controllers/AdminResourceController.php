@@ -10,11 +10,9 @@ use App\Services\Resource\ResourceServiceInterface;
 
 class AdminResourceController extends Controller
 {
-    private $resourceService;
 
-    public function __construct(ResourceServiceInterface $resourceService)
+    public function __construct(private ResourceServiceInterface $resourceService)
     {
-        $this->resourceService = $resourceService;
     }
 
     /**

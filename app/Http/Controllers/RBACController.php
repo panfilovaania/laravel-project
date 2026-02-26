@@ -4,7 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Http\Requests\HasPermissionRequest;
 use App\Models\User;
-use App\Services\RBACService\RBACServiceInterface;
+use App\Services\RBAC\RBACServiceInterface;
 use Illuminate\Http\Request;
 
 class RBACController extends Controller

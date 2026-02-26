@@ -24,8 +24,9 @@ class UpdateServiceRequest extends FormRequest
         return [
             'name' => 'sometimes|string|max:255|unique:services',
             'label' => 'sometimes|string|max:255',
-            'description' => 'sometimes|string',
+            'description' => 'sometimes|string|max:300',
             'price' => 'sometimes|numeric|min:0',
+            'resources_count' => 'sometimes|numeric|min:1',
             'duration_minutes' => 'sometimes|integer|min:1',
             'available' => 'sometimes|boolean',
         ];

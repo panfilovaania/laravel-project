@@ -9,4 +9,6 @@ return [
     App\Providers\UserServiceProvider::class,
     App\Providers\RBACServiceProvider::class,
     App\Providers\BookingServiceProvider::class,
+    App\Providers\TimesheetServiceProvider::class,
+    App\Providers\AvailabilityCheckServiceProvider::class,
 ];

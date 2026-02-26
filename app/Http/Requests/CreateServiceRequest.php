@@ -22,10 +22,12 @@ class CreateServiceRequest extends FormRequest
     public function rules(): array
     {
         return [
+            'location_id' => 'required|numeric|exists:locations,id',
             'name' => 'required|unique:services|string|max:100',
             'label' => 'required|string|max:100',
             'description' => 'required|string|max:300',
             'price' => 'required|numeric|min:0',
+            'resources_count' => 'required|numeric|min:1',
             'duration_minutes' => 'required|integer|min:1',
             'available' => 'boolean',
         ];

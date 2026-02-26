@@ -3,7 +3,7 @@
 namespace App\Services\Service;
 
 use App\Dto\Service\CreateServiceRequestDto;
-use App\Exceptions\Service\ServiceOperationException;
+use App\Exceptions\Operation\OperationException;
 use App\Models\Service;
 use App\Repositories\ServiceRepo\ServiceRepoInterface;
 use Illuminate\Support\Collection;
@@ -34,7 +34,7 @@ class ServiceService implements ServiceServiceInterface
                 'input' => request()->all()
             ]);
 
-            throw new ServiceOperationException("Не удалось создать услугу: {$e->getMessage()}");
+            throw new OperationException("Не удалось создать услугу: {$e->getMessage()}");
         }
     }
 
@@ -43,11 +43,11 @@ class ServiceService implements ServiceServiceInterface
         try {
             return $this->serviceRepo->updateService($service, $data);
         } catch (\Exception $e) {
-            Log::channel('service')->error("Ошибка при обновлении сервиса: ", [
+            Log::channel('service')->error("Ошибка при обновлении услуги: ", [
                 'message' => $e->getMessage(),
                 'input' => request()->all()
             ]);
-            throw new ServiceOperationException("Ошибка при обновлении услуги {$service->id}");
+            throw new OperationException("Ошибка при обновлении услуги {$service->id}");
         }
     }
 
@@ -57,7 +57,7 @@ class ServiceService implements ServiceServiceInterface
             Log::channel('service')->error("Ошибка при удалении сервиса: ", [
                 'input' => request()->all()
             ]);
-            throw new ServiceOperationException("Не удалось удалить услугу");
+            throw new OperationException("Не удалось удалить услугу");
         }
     }
 }

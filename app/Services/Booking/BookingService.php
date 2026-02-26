@@ -2,16 +2,20 @@
 
 namespace App\Services\Booking;
 
-use App\Dto\Service\CreateServiceRequestDto;
-use App\Exceptions\Service\ServiceOperationException;
+use App\Dto\Booking\CreateBookingRequestDto;
+use App\Exceptions\Operation\OperationException;
 use App\Models\Booking;
 use App\Repositories\BookingRepo\BookingRepoInterface;
+use App\Services\Timesheet\TimesheetServiceInterface;
 use Illuminate\Support\Collection;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Log;
 
 class BookingService implements BookingServiceInterface
 {
-    public function __construct(private BookingRepoInterface $bookingRepo)
+    public function __construct(private BookingRepoInterface $bookingRepo,
+                                private TimesheetServiceInterface $timesheetService,
+                                )
     {}
 
     public function getBookings(): Collection
@@ -24,7 +28,7 @@ class BookingService implements BookingServiceInterface
         return $this->bookingRepo->findById($id);
     }
 
-    public function createBooking(CreateServiceRequestDto $dto): Booking
+    public function createBooking(CreateBookingRequestDto $dto): Booking
     {
         try {
             return $this->bookingRepo->createBooking($dto->toArray());
@@ -34,30 +38,54 @@ class BookingService implements BookingServiceInterface
                 'input' => request()->all()
             ]);
 
-            throw new ServiceOperationException("Не удалось создать бронирование: {$e->getMessage()}");
+            throw new OperationException("Не удалось создать бронирование: {$e->getMessage()}");
         }
     }
 
-    // public function updateService(Service $service, array $data): Service
-    // {
-    //     try {
-    //         return $this->serviceRepo->updateService($service, $data);
-    //     } catch (\Exception $e) {
-    //         Log::channel('service')->error("Ошибка при обновлении сервиса: ", [
-    //             'message' => $e->getMessage(),
-    //             'input' => request()->all()
-    //         ]);
-    //         throw new ServiceOperationException("Ошибка при обновлении услуги {$service->id}");
-    //     }
-    // }
+    public function updateBooking(Booking $booking, array $data): Booking
+    {
+        try {
+            return $this->bookingRepo->updateBooking($booking, $data);
+        } catch (\Exception $e) {
+            Log::channel('booking')->error("Ошибка при обновлении бронирования: ", [
+                'message' => $e->getMessage(),
+                'input' => request()->all()
+            ]);
+            throw new OperationException("Ошибка при обновлении бронирования {$booking->id}");
+        }
+    }
 
-    // public function cancelBooking(Booking $booking): bool
-    // {
-    //     if (!$this->bookingRepo->cancelBooking($booking)) {
-    //         Log::channel('booking')->error("Ошибка при отмене бронирования: ", [
-    //             'input' => request()->all()
-    //         ]);
-    //         throw new ServiceOperationException("Не удалось удалить бронирование");
-    //     }
-    // }
+    public function cancelBooking(Booking $booking): Booking
+    {
+        DB::beginTransaction();
+
+        try
+        {
+            $canceledBooking = $this->bookingRepo->cancelBooking($booking);
+
+            if (!$canceledBooking) {
+                throw new \Exception('Не удалось обновить статус бронирования');
+            }
+
+            if (!$this->timesheetService->cancelTimesheetsForBooking($booking)) {
+                throw new \Exception('Не удалось отменить записи в расписании');
+            }
+
+            DB::commit();
+
+            Log::channel('booking')->info('Бронирование успешно отменено', ['booking_id' => $booking->id]);
+
+            return $canceledBooking;
+        }
+        catch (\Exception $e) {
+            DB::rollBack();
+
+            Log::channel('booking')->error("Ошибка при отмене бронирования: ", [
+                'booking_id' => $booking->id,
+                'message' => $e
+            ]);
+
+            throw new OperationException("Не удалось отменить бронирование");
+        }
+    }
 }

@@ -1,10 +1,10 @@
 <?php
 
-namespace App\Exceptions\Service;
+namespace App\Exceptions\Operation;
 
 use Exception;
 
-class ServiceOperationException extends Exception
+class OperationException extends Exception
 {
     protected $code = 422;
 

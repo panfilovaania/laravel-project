@@ -2,6 +2,7 @@
 
 namespace App\Services\User;
 
+use App\Dto\User\CreateUserRequestDto;
 use App\Models\User;
 use Illuminate\Support\Collection;
 
@@ -11,7 +12,7 @@ interface UserServiceInterface
 
     public function getUserById(int $id): User;
 
-    public function createUser(User $user): User;
+    public function createUser(CreateUserRequestDto $dto): User;
 
     public function updateUser(User $user, array $data): User;
 

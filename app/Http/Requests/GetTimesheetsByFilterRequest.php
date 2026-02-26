@@ -4,7 +4,7 @@ namespace App\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
 
-class StoreBookingRequest extends FormRequest
+class GetTimesheetsByFilterRequest extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -22,13 +22,12 @@ class StoreBookingRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'city_id' => 'required|numeric|exists:cities,id',
-            'location_id' => 'required|numeric|exists:locations,id',
-            'service_id' => 'required|numeric|exists:services,id',
-            'date' => 'required|date|date_format:Y-m-d|after_or_equal:today',
+            'entity_type_id' => 'required|numeric|exists:entity_types,id',
+            'timesheet_status_id' => 'required|numeric|exists:timesheet_statuses,id',
+            'entity_id' => 'required|numeric',
+            'date' => 'required|date|date_format:Y-m-d',
             'start_time' => 'required|date_format:H:i',
-            'end_time' => 'required|date_format:H:i',
-            'persons' => 'required|date_format:H:i',
+            'end_time' => 'required|date_format:H:i'
         ];
     }
 }

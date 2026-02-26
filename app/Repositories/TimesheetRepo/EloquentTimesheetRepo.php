@@ -7,9 +7,33 @@ use Illuminate\Support\Collection;
 
 class EloquentTimesheetRepo implements TimesheetRepoInterface
 {
+    private array $allowedFilters = [
+        'entity_type_id',
+        'timesheet_status_id',
+        'entity_id',
+        'date',
+        'start_time',
+        'end_time'
+    ];
+
     public function getTimesheets(): Collection
     {
         return Timesheet::all();
+    }
+
+    public function getTimesheetsByFilters(array $filters): Collection
+    {
+        $query = Timesheet::query();
+
+        foreach($this->allowedFilters as $field)
+        {
+            if (array_key_exists($field, $filters) && $filters !== null)
+            {
+                $query->where($field, $filters[$field]);
+            }
+        }
+        
+       return $query->get();
     }
 
     public function findById(int $id): Timesheet 
@@ -20,12 +44,12 @@ class EloquentTimesheetRepo implements TimesheetRepoInterface
     public function createTimesheet(array $data): Timesheet
     {
         return Timesheet::create([
-            'name' => $data['name'],
-            'label' => $data['label'],
-            'description' => $data['description'],
-            'price' => $data['price'],
-            'duration_minutes' => $data['duration_minutes'],
-            'available' => $data['available'],
+            'entity_type_id' => $data['entity_type_id'],
+            'timesheet_status_id' => $data['timesheet_status_id'],
+            'entity_id' => $data['entity_id'],
+            'date' => $data['date'],
+            'start_time' => $data['start_time'],
+            'end_time' => $data['end_time'],
         ]);
     }
 

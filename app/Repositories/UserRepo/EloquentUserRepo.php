@@ -24,9 +24,9 @@ class EloquentUserRepo implements UserRepoInterface
         return $user->roles()->get();
     }
 
-    public function createUser(User $user): User
+    public function createUser(array $data): User
     {
-        return User::create($user);
+        return User::create($data);
     }
 
     public function updateUser(User $user, array $data): User

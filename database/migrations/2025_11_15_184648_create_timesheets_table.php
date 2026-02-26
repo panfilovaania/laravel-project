@@ -13,12 +13,12 @@ return new class extends Migration
     {
         Schema::create('timesheets', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('timesheet_type_id')->constrained()->cascadeOnUpdate()->cascadeOnDelete();
-            $table->smallInteger('start_day');
-            $table->smallInteger('end_day');
-            $table->boolean('is_repeat')->default(0);
-            $table->date('is_valid_from');
-            $table->date('is_valid_to');
+            $table->foreignId('entity_type_id')->constrained()->cascadeOnUpdate()->cascadeOnDelete();
+            $table->foreignId('timesheet_status_id')->constrained()->cascadeOnUpdate()->cascadeOnDelete();
+            $table->integer('entity_id');
+            $table->date('date');
+            $table->time('start_time');
+            $table->time('end_time');
             $table->timestamps();
         });
     }

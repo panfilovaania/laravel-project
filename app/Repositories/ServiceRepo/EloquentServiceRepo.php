@@ -20,10 +20,12 @@ class EloquentServiceRepo implements ServiceRepoInterface
     public function createService(array $data): Service
     {
         return Service::create([
+            'location_id' => $data['location_id'],
             'name' => $data['name'],
             'label' => $data['label'],
             'description' => $data['description'],
             'price' => $data['price'],
+            'resources_count' => $data['resources_count'],
             'duration_minutes' => $data['duration_minutes'],
             'available' => $data['available'],
         ]);

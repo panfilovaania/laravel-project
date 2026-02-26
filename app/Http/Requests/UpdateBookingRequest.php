@@ -11,7 +11,7 @@ class UpdateBookingRequest extends FormRequest
      */
     public function authorize(): bool
     {
-        return false;
+        return true;
     }
 
     /**
@@ -22,7 +22,7 @@ class UpdateBookingRequest extends FormRequest
     public function rules(): array
     {
         return [
-            //
+            'booking_status_id' => 'sometimes|numeric|exists:booking_statuses,id'
         ];
     }
 }

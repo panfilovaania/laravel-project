@@ -2,7 +2,8 @@
 
 namespace App\Services\User;
 
-use App\Exceptions\Service\ServiceOperationException;
+use App\Dto\User\CreateUserRequestDto;
+use App\Exceptions\Operation\OperationException;
 use App\Exceptions\User\UserUpdateException;
 use App\Models\User;
 use App\Repositories\UserRepo\UserRepoInterface;
@@ -24,17 +25,17 @@ class UserService implements UserServiceInterface
         return $this->userRepo->findById($id);
     }
 
-    public function createUser(User $user): User
+    public function createUser(CreateUserRequestDto $dto): User
     {
         try {
-            return $this->userRepo->createUser($user);
+            return $this->userRepo->createUser($dto->toArray());
         } catch (\Exception $e) {
             Log::channel('user')->error("Ошибка при создании пользователя: ", [
                 'message' => $e->getMessage(),
                 'input' => request()->all()
             ]);
 
-            throw new ServiceOperationException("Не удалось создать пользователя: {$e->getMessage()}");
+            throw new OperationException("Не удалось создать пользователя: {$e->getMessage()}");
         }
     }
 
@@ -55,7 +56,7 @@ class UserService implements UserServiceInterface
             Log::channel('user')->error("Ошибка при удалении пользователя: ", [
                 'input' => request()->all()
             ]);
-            throw new ServiceOperationException("Не удалось удалить пользователя");
+            throw new OperationException("Не удалось удалить пользователя");
         }
     }
 }

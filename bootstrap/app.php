@@ -1,6 +1,6 @@
 <?php
 
-use App\Exceptions\Service\ServiceOperationException;
+use App\Exceptions\Operation\OperationException;
 use App\Http\Middleware\LocaleFromUrl;
 use Illuminate\Foundation\Application;
 use Illuminate\Foundation\Configuration\Exceptions;
@@ -40,7 +40,7 @@ return Application::configure(basePath: dirname(__DIR__))
             ], 404);
         });
 
-         $exceptions->render(function (ServiceOperationException $e) {
+         $exceptions->render(function (OperationException $e) {
             return response()->json([
                 'status' => 'error',
                 'message' => $e->getMessage()

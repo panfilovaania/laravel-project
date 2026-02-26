@@ -170,5 +170,11 @@ return [
             'level' => env('LOG_LEVEL', 'debug'),
             'replace_placeholders' => true,
         ],
+        'timesheet' => [
+            'driver' => 'single',
+            'path' => storage_path('logs/timesheet.log'),
+            'level' => env('LOG_LEVEL', 'debug'),
+            'replace_placeholders' => true,
+        ],
     ],
 ];

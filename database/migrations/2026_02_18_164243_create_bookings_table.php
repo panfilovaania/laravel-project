@@ -20,8 +20,8 @@ return new class extends Migration
             $table->foreignId('timesheet_id')->unique()->constrained()->cascadeOnUpdate()->cascadeOnDelete();
             $table->foreignId('booking_status_id')->constrained()->cascadeOnUpdate()->cascadeOnDelete();
             $table->date('date');
-            $table->date('start_time');
-            $table->date('end_time');
+            $table->time('start_time');
+            $table->time('end_time');
             $table->integer('persons');
             $table->decimal('total_price')->nullable();
             $table->timestamps();

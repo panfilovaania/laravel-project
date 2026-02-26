@@ -35,10 +35,12 @@ class AdminServiceController extends Controller
         $validated = $request->validated();
         
         $serviceDto = new CreateServiceRequestDto(
+            location_id: $validated['location_id'],
             name: $validated['name'],
             label: $validated['label'],
             description: $validated['description'],
             price: $validated['price'],
+            resources_count: $validated['resources_count'],
             duration_minutes: $validated['duration_minutes'],
             available: $validated['available']
         );
@@ -53,8 +55,6 @@ class AdminServiceController extends Controller
      */
     public function show(Service $service)
     {
-        // $service = $this->serviceService->getServiceById($service->id);
-
         return response()->json($service);
     }
 

@@ -13,10 +13,12 @@ return new class extends Migration
     {
         Schema::create('services', function (Blueprint $table) {
             $table->id();
+            $table->foreignId('location_id')->constrained()->cascadeOnUpdate()->cascadeOnDelete();
             $table->string('name')->unique();
             $table->string('label', 100);
             $table->string('description', 300);
             $table->integer('price');
+            $table->integer('resources_count');
             $table->smallInteger('duration_minutes');
             $table->boolean('available')->default(0);
             $table->timestamps();

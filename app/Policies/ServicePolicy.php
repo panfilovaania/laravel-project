@@ -4,7 +4,7 @@ namespace App\Policies;
 
 use App\Models\Service;
 use App\Models\User;
-use App\Services\RBACService\RBACServiceInterface;
+use App\Services\RBAC\RBACServiceInterface;
 use App\Services\User\UserServiceInterface;
 use Illuminate\Auth\Access\Response;
 

@@ -3,6 +3,7 @@
 namespace App\Repositories\BookingRepo;
 
 use App\Models\Booking;
+use Exception;
 use Illuminate\Support\Collection;
 use Illuminate\Support\Facades\Auth;
 
@@ -21,7 +22,7 @@ class EloquentBookingRepo implements BookingRepoInterface
     public function createBooking(array $data): Booking
     {
         return Booking::create([
-            'user_id' => Auth::getUser()->id,
+            'user_id' => $data['user_id'],
             'city_id' => $data['city_id'],
             'location_id' => $data['location_id'],
             'service_id' => $data['service_id'],
@@ -35,15 +36,18 @@ class EloquentBookingRepo implements BookingRepoInterface
         ]);
     }
 
-    // public function updateService(Service $service, array $data): Service 
-    // {
-    //     $service->update($data);
+    public function updateBooking(Booking $booking, array $data): Booking 
+    {
+        $booking->update($data);
         
-    //     return $service->fresh();
-    // }
+        return $booking->fresh();
+    }
 
-    // public function cancelBooking(Booking $booking): Booking
-    // {
-    //     return $booking->delete();
-    // }
+    public function cancelBooking(Booking $booking): Booking
+    {
+        $booking->update([
+            'booking_status_id' => 2,
+        ]);
+        return $booking->fresh();
+    }
 }

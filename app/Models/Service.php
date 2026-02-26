@@ -11,10 +11,12 @@ class Service extends Model
     use HasFactory;
 
     protected $fillable = [
+        'location_id',
         'name',
         'label',
         'description',
         'price',
+        'resources_count',
         'duration_minutes',
         'available',
     ];
