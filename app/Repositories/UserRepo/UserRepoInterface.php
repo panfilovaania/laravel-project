@@ -2,7 +2,7 @@
 
 namespace App\Repositories\UserRepo;
 
-use App\Dto\User\CreateUserRequestDto;
+
 use App\Models\User;
 use Illuminate\Support\Collection;
 

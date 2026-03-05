@@ -65,13 +65,8 @@ class AdminResourceControllerTest extends TestCase
         $id = $response->json()['id'];
 
         $response->assertStatus(200);
-
-        // $this->assertDatabaseHas(Post::class, ['id' => $id]);
-        // $this->assertDatabaseHas(Post::class, $payload);
+        
         $this->assertNotNull(Resource::find($id), 'Resource is not found');
-
-
-        // $response->assertJsonFragment([$expectedPostJson]);
     }
 
     public function test_admin_update_resource_in_db()

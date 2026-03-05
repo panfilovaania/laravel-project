@@ -57,12 +57,24 @@ class BookingController extends Controller
                                                                             $validated['start_time'],
                                                                             $validated['end_time'],
                                                                             $validated['persons']);
-
+        
         if(!$checkAvailable)
         {
-            return response()->json('На это время услуга уже забронирована. Пожалуйста, выберите другое время');
+            return response()->json('Бронирование на услугу недоступно.');
         }
-
+        
+        $availableResources = $this->availabilityCheckService->getAvailableResources($service->resources()->get(), 
+                                                                                    $validated['date'],
+                                                                                    $validated['start_time'],
+                                                                                    $validated['end_time'],
+                                                                                    $service->duration_minutes,
+                                                                                    $validated['persons']);
+    
+        if ($availableResources->isEmpty())
+        {
+            return response()->json("На данное время все места заняты. Выберите другое время");
+        }
+       
         $serviceTimesheetDto = new CreateTimesheetRequestDto(
             entity_type_id: 1,
             timesheet_status_id: 1,
@@ -74,26 +86,25 @@ class BookingController extends Controller
 
         $serviceTimesheet = $this->timesheetService->createTimesheet($serviceTimesheetDto);
         
-        $availableResources = $this->availabilityCheckService->getAvailableResources($service->resources()->get(), 
-                                                                                    $validated['date'],
-                                                                                    $validated['start_time'],
-                                                                                    $validated['end_time']);
-    
-        if ($availableResources->count() >= $service->persons || $availableResources->count() == 0)
+        for ($i=0; $i < $availableResources->count(); $i++)
         {
-            for ($i=0; $i < $validated['persons']; $i++) { 
+            $start_time = Carbon::parse($validated['start_time'])->addMinutes($i*$service->duration_minutes);
+            $end_time = Carbon::parse($start_time)->addMinutes($service->duration_minutes);
+
+            foreach ($availableResources->get($i)->take($validated['persons']) as $resource)
+            {
                 $this->timesheetService->createTimesheet(
                     new CreateTimesheetRequestDto(
                         entity_type_id: 2,
                         timesheet_status_id: 1,
-                        entity_id: $availableResources->get($i)->id,
+                        entity_id: $resource->id,
                         date: Carbon::parse($validated['date']),
-                        start_time: Carbon::parse($validated['start_time']),
-                        end_time: Carbon::parse($validated['end_time']),
+                        start_time: $start_time,
+                        end_time: $end_time,
                     )
                 );
             }
-        }                                                                          
+        }                                                                                
 
         $bookingDto = new CreateBookingRequestDto(
             user_id: Auth::id(),
@@ -109,7 +120,7 @@ class BookingController extends Controller
             total_price: $service->price*$validated['persons']
         ); 
 
-        $createdBooking = $this->bookingService->createBooking($bookingDto);
+       $createdBooking = $this->bookingService->createBooking($bookingDto);
 
         return response()->json($createdBooking);
     }

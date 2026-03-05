@@ -11,7 +11,7 @@ interface TimesheetServiceInterface
 {
     public function getTimesheets(): Collection;
 
-    public function getTimesheetsByFilters(array $filter): Collection;
+    public function getTimesheetsByFilters(array $filter): Timesheet;
 
     public function getTimesheetById(int $id): Timesheet;
 

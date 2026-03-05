@@ -2,7 +2,6 @@
 
 namespace App\Repositories\UserRepo;
 
-use App\Models\Service;
 use App\Models\User;
 use App\Repositories\UserRepo\UserRepoInterface;
 use Illuminate\Support\Collection;

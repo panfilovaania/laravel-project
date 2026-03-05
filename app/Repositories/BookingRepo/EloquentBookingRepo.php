@@ -5,7 +5,6 @@ namespace App\Repositories\BookingRepo;
 use App\Models\Booking;
 use Exception;
 use Illuminate\Support\Collection;
-use Illuminate\Support\Facades\Auth;
 
 class EloquentBookingRepo implements BookingRepoInterface
 {

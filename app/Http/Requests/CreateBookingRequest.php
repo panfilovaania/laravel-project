@@ -3,6 +3,7 @@
 namespace App\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
+use Illuminate\Validation\Rule;
 
 class CreateBookingRequest extends FormRequest
 {
@@ -23,11 +24,22 @@ class CreateBookingRequest extends FormRequest
     {
         return [
             'city_id' => 'required|numeric|exists:cities,id',
-            'location_id' => 'required|numeric|exists:locations,id|exists:services,location_id',
+            'location_id' => [
+                'required',
+                'numeric',
+                'exists:services,location_id',
+                Rule::exists('locations', 'id')->where(function ($query) {
+                    $query->where('city_id', $this->city_id);
+                }),
+            ],
             'service_id' => 'required|numeric|exists:services,id',
             'date' => 'required|date|date_format:Y-m-d|after_or_equal:today',
-            'start_time' => 'required|date_format:H:i',
-            'end_time' => 'required|date_format:H:i',
+            'start_time' => [
+                'required',
+                'date_format:H:i',
+                new \App\Rules\NotInPastTime(request('date'))
+            ],
+            'end_time' => 'required|date_format:H:i|after:start_time',
             'persons' => 'required|numeric',
         ];
     }

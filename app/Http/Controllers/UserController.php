@@ -51,8 +51,6 @@ class UserController extends Controller
      */
     public function show(User $user)
     {
-        // $user = $this->userService->getUserById($user->id);
-
         return response()->json($user);
     }
 

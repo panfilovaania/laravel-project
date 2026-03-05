@@ -4,6 +4,7 @@ namespace App\Repositories\TimesheetRepo;
 
 use App\Models\Timesheet;
 use Illuminate\Support\Collection;
+use Illuminate\Support\Facades\Log;
 
 class EloquentTimesheetRepo implements TimesheetRepoInterface
 {
@@ -32,7 +33,7 @@ class EloquentTimesheetRepo implements TimesheetRepoInterface
                 $query->where($field, $filters[$field]);
             }
         }
-        
+
        return $query->get();
     }
 

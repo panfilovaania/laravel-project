@@ -69,12 +69,7 @@ class AdminServiceControllerTest extends TestCase
 
         $response->assertStatus(200);
 
-        // $this->assertDatabaseHas(Post::class, ['id' => $id]);
-        // $this->assertDatabaseHas(Post::class, $payload);
         $this->assertNotNull(Service::find($id), 'Service is not found');
-
-
-        // $response->assertJsonFragment([$expectedPostJson]);
     }
 
     public function test_admin_update_service_in_db()

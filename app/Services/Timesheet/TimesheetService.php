@@ -8,6 +8,7 @@ use App\Models\Booking;
 use App\Models\Timesheet;
 use App\Repositories\TimesheetRepo\TimesheetRepoInterface;
 use App\Services\Service\ServiceServiceInterface;
+use Carbon\Carbon;
 use Illuminate\Support\Collection;
 use Illuminate\Support\Facades\Log;
 
@@ -22,9 +23,9 @@ class TimesheetService implements TimesheetServiceInterface
         return $this->timesheetRepo->getTimesheets();
     }
 
-    public function getTimesheetsByFilters(array $filter): Collection
+    public function getTimesheetsByFilters(array $filter): Timesheet
     {
-        return $this->timesheetRepo->getTimesheetsByFilters($filter);
+        return $this->timesheetRepo->getTimesheetsByFilters($filter)->first();
     }
 
     public function getTimesheetById(int $id): Timesheet
@@ -88,8 +89,17 @@ class TimesheetService implements TimesheetServiceInterface
 
                 throw new \Exception('Не удалось отменить запись услуги в расписании');
             }
-                   
-            $resources = $booking->service->resources;
+            
+            $service = $this->serviceService->getServiceById($booking->service_id);
+
+            if (!$service)
+            {
+                Log::channel('timesheet')->error('Не удалось найти сервис для бронирования ', ['booking_id' => $booking->id]);
+
+                return false;
+            }
+
+            $resources = $service->resources()->get();
 
             if ($resources->isEmpty())
             {
@@ -111,15 +121,15 @@ class TimesheetService implements TimesheetServiceInterface
         }
         catch (\Exception $e)
         {
-            Log::channel('timesheet')->error("Ошибка при отмене бронирования: ", [
-                'message' => $e->getTrace()
+            Log::channel('timesheet')->error("Ошибка при отмене записей в расписании: ", [
+                'message' => $e
             ]);
 
-            throw new OperationException("Не удалось отменить бронирование");
+            throw new OperationException("Не удалось отменить записи в расписании: {$e}");
         }
     }
 
-    protected function cancelServiceTimesheet(Booking $booking): bool
+    private function cancelServiceTimesheet(Booking $booking): bool
     {
         $timesheet = $this->timesheetRepo->getTimesheetsByFilters([
             'entity_type' => 1,
@@ -136,11 +146,11 @@ class TimesheetService implements TimesheetServiceInterface
             throw new \Exception('Не удалось найти запись услуги в расписании');
         }
 
-        $updatedServiceTimesheet = $this->timesheetRepo->updateTimesheet($timesheet->first(), ['timesheet_status_id' => 2]);
+        $updatedServiceTimesheet = $this->timesheetRepo->updateTimesheet($timesheet->firstOrFail(), ['timesheet_status_id' => 2]);
                
         if (!$updatedServiceTimesheet)
         {
-            Log::channel('timesheet')->error('ННе удалось отменить запись услуги в расписании', ['booking_id' => $booking->id]);
+            Log::channel('timesheet')->error('Не удалось отменить запись услуги в расписании', ['booking_id' => $booking->id]);
 
             throw new \Exception('Не удалось отменить запись услуги в расписании');
         }
@@ -148,36 +158,62 @@ class TimesheetService implements TimesheetServiceInterface
         return true;
     }
 
-    protected function cancelResourceTimesheets(Booking $booking, $resources): bool
+    private function cancelResourceTimesheets(Booking $booking, $resources): bool
     {
         $allCancelled = true;
+
+        $service = $this->serviceService->getServiceById($booking->service_id);
+
+        $totalMinutes = Carbon::parse($booking->start_time)->diffInMinutes(Carbon::parse($booking->end_time));
+
+        $resourcesTimesheetsByPeriods = collect();
+
+        $periodsCount = $totalMinutes / $service->duration_minutes;
         
-        foreach ($resources as $resource)
-        {
-            $timesheet = $this->timesheetRepo->getTimesheetsByFilters([
+        for ($i=0; $i < $periodsCount; $i++)
+        { 
+            $start_time = Carbon::parse($booking->start_time)->addMinutes($i*$service->duration_minutes);
+            $end_time = Carbon::parse($start_time)->addMinutes($service->duration_minutes);
+
+            $resourcesTimesheets = $this->timesheetRepo->getTimesheetsByFilters([
                 'entity_type' => 2,
-                'entity_id' => $resource->id,
                 'timesheet_status_id' => 1,
                 'date' => $booking->date,
-                'start_time' => $booking->start_time,
-                'end_time' => $booking->end_time
+                'start_time' => $start_time,
+                'end_time' => $end_time
             ]);
-            
-            if ($timesheet)
+
+            if ($resourcesTimesheets->isEmpty())
             {
-                $updatedResourceTimesheet = $this->timesheetRepo->updateTimesheet($timesheet->first(), ['timesheet_status_id' => 2]);
-               
-                if (!$updatedResourceTimesheet)
-                {
-                    $allCancelled = false;
+                $allCancelled = false;
 
-                    Log::error('Не удалось отменить запись ресурса', [
-                        'resource_id' => $resource->id,
-                        'timesheet_id' => $timesheet->id
-                    ]);
+                Log::error('Не удалось найти ресурсы для отмены');
 
-                    throw new \Exception('Не удалось отменить запись ресурса в расписании');
-                }
+                throw new \Exception('Не удалось найти ресурсы для отмены');
+            }
+
+            $resourcesTimesheetsByPeriods->push($resourcesTimesheets);
+        }
+
+        $resourcesTimesheetsForService = $resourcesTimesheetsByPeriods->collapse()
+            ->whereIn('entity_id', $resources->pluck('id'));
+        
+        for ($i=0; $i < $resourcesTimesheetsForService->count(); $i++)
+        {
+            $timesheet = $resourcesTimesheetsForService->get($i);
+
+            $updatedResourceTimesheet = $this->timesheetRepo->updateTimesheet($timesheet, ['timesheet_status_id' => 2]);
+            
+            if (!$updatedResourceTimesheet)
+            {
+                $allCancelled = false;
+
+                Log::error('Не удалось отменить запись ресурса', [
+                    'resource_id' => $timesheet->entity_id,
+                    'timesheet_id' => $timesheet->id
+                ]);
+
+                throw new \Exception('Не удалось отменить запись ресурса в расписании');
             }
         }
         

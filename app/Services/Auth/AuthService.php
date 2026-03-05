@@ -3,7 +3,6 @@
 namespace App\Services\Auth;
 
 use App\Exceptions\Auth\InvalidCredentialsException;
-use App\Models\User;
 use App\Repositories\AuthRepo\AuthRepoInterface;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Log;
