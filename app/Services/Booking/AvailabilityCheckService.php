@@ -73,7 +73,7 @@ class AvailabilityCheckService implements AvailabilityCheckServiceInterface
             $result = $resources->filter(function ($resource) use ($date, $st, $et) {
                 return $this->isAvailable(2, $resource->id, Carbon::parse($date), $st, $et);
             });
-
+            
             if ($result->count() < $requiredResources)
             {
                 return collect();
@@ -90,19 +90,29 @@ class AvailabilityCheckService implements AvailabilityCheckServiceInterface
         int $entity_id,
         Carbon $date, 
         Carbon $startTime, 
-        Carbon $endTime,
+        Carbon $endTime
     ): bool
     {
        $query = Timesheet::where('entity_type_id', $entity_type_id)
             ->where('timesheet_status_id', 1)
             ->where('entity_id', $entity_id)
             ->where('date', $date->toDateString());
-
-        $query->where(function($q) use ($startTime, $endTime) {
-            $q->where('start_time', '<=', $startTime->toTimeString())
-            ->where('end_time', '>=', $endTime->toTimeString());
-        });
+    
+        $query->where('start_time', '<', $endTime->toTimeString())
+          ->where('end_time', '>', $startTime->toTimeString());
 
         return !$query->exists();
     }
 }
+
+// занято 13:00 - 14:00
+// хотим  13:30 - 14:30
+// 13 00 <= 13:30 - true
+// 14 00 >= 14:30 - false
+
+// занято 13:30 - 14:00
+// хотим  13:00 - 14:00
+// 13 30 <= 13:00 - false
+// 14 00 <= 13:30 - false
+// 13 30 <= 13:30 - true
+// 14 00 <= 14:00 - true

@@ -5,13 +5,8 @@ use App\Http\Controllers\AdminServiceController;
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\BookingController;
 use App\Http\Controllers\RBACController;
-use App\Http\Controllers\TimesheetController;
 use App\Http\Controllers\UserController;
-use App\Http\Middleware\LocaleFromUrl;
-use App\Models\Booking;
 use Illuminate\Support\Facades\Route;
-use Illuminate\Support\Facades\Auth;
-use PlaceholderImageGenerator\PlaceholderImageGeneratorService;
 
 Route::prefix('auth')->group(function () {
         Route::post('/login', [AuthController::class, 'login']);
@@ -73,38 +68,19 @@ Route::prefix('users')->middleware('auth:sanctum')->group(function () {
             ->name('destroy');
 });
 
-Route::get('/img/{w}/{h}/{color?}', function ($w, $h, $color = 'cccccc', PlaceholderImageGeneratorService $generator) {
-    return $generator->makeResponse((int)$w, (int)$h, $color);
-});
-
 Route::prefix('bookings')->middleware('auth:sanctum')->group(function () {
         Route::get('/', [BookingController::class, 'index'])
+            ->middleware('can:viewAny,App\Models\Booking')
             ->name('index');
         Route::get('/{booking}', [BookingController::class, 'show'])->whereNumber('booking')
-            // ->middleware('can:view,user')
-            ;
+            ->middleware('can:view,booking');
         Route::post('/', [BookingController::class, 'store'])
+            ->middleware('can:create,App\Models\Booking')
             ->name('store');
-        Route::patch('/{booking}', [BookingController::class, 'update'])->whereNumber('booking');
-        //     ->middleware('can:update,user');
-        // Route::delete('/{user}', [UserController::class, 'destroy'])->whereNumber('user')
-        //     ->name('destroy');
-
-        Route::patch('cancel/{booking}', [BookingController::class, 'cancelBooking'])->whereNumber('booking');
-});
-
-Route::prefix('timesheets')->middleware('auth:sanctum')->group(function () {
-        Route::get('/', [TimesheetController::class, 'getTimesheetsByFilter'])
-            ->name('getTimesheetsByFilter');
-        Route::get('/{booking}', [BookingController::class, 'show'])->whereNumber('booking')
-            // ->middleware('can:view,user')
-            ;
-        Route::post('/', [BookingController::class, 'store'])
+        Route::patch('cancel/{booking}', [BookingController::class, 'cancelBooking'])->whereNumber('booking')
+            ->middleware('can:cancel,booking')
             ->name('store');
-        Route::patch('/{booking}', [BookingController::class, 'update'])->whereNumber('booking');
-        //     ->middleware('can:update,user');
-        // Route::delete('/{user}', [UserController::class, 'destroy'])->whereNumber('user')
-        //     ->name('destroy');
-
-        Route::patch('cancel/{booking}', [TimesheetController::class, 'cancelTimesheetsForBooking'])->whereNumber('booking');
+        Route::get('/by_user/{user}', [BookingController::class, 'getBookingsForUser'])->whereNumber('user')
+            ->middleware('can:viewAnyForUser,App\Models\Booking')
+            ->name('getBookingsForUser');   
 });

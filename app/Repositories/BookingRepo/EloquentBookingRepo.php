@@ -18,6 +18,11 @@ class EloquentBookingRepo implements BookingRepoInterface
         return Booking::findOrFail($id);
     }
 
+    public function findByUser(int $userId): Collection
+    {
+        return Booking::where('user_id', $userId)->get();
+    }
+
     public function createBooking(array $data): Booking
     {
         return Booking::create([

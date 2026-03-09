@@ -5,6 +5,7 @@ namespace App\Services\Booking;
 use App\Dto\Booking\CreateBookingRequestDto;
 use App\Exceptions\Operation\OperationException;
 use App\Models\Booking;
+use App\Models\User;
 use App\Repositories\BookingRepo\BookingRepoInterface;
 use App\Services\Timesheet\TimesheetServiceInterface;
 use Illuminate\Support\Collection;
@@ -26,6 +27,11 @@ class BookingService implements BookingServiceInterface
     public function getBookingById(int $id): Booking
     {
         return $this->bookingRepo->findById($id);
+    }
+
+    public function getBookingsByUser(User $user): Collection
+    {
+        return $this->bookingRepo->findByUser($user->id);
     }
 
     public function createBooking(CreateBookingRequestDto $dto): Booking

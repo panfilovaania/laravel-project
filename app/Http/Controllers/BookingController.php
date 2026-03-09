@@ -5,8 +5,10 @@ namespace App\Http\Controllers;
 use App\Dto\Booking\CreateBookingRequestDto;
 use App\Dto\Timesheet\CreateTimesheetRequestDto;
 use App\Http\Requests\CreateBookingRequest;
+use App\Http\Requests\GetBookingsRequest;
 use App\Http\Requests\UpdateBookingRequest;
 use App\Models\Booking;
+use App\Models\User;
 use App\Services\Booking\AvailabilityCheckServiceInterface;
 use App\Services\Booking\BookingServiceInterface;
 use App\Services\Service\ServiceServiceInterface;
@@ -69,7 +71,7 @@ class BookingController extends Controller
                                                                                     $validated['end_time'],
                                                                                     $service->duration_minutes,
                                                                                     $validated['persons']);
-    
+
         if ($availableResources->isEmpty())
         {
             return response()->json("На данное время все места заняты. Выберите другое время");
@@ -166,5 +168,12 @@ class BookingController extends Controller
         $canceledBooking = $this->bookingService->cancelBooking($booking);
 
         return response()->json($canceledBooking);
+    }
+
+    public function getBookingsForUser(User $user)
+    {
+        $bookings = $this->bookingService->getBookingsByUser($user);  
+
+        return response()->json($bookings);
     }
 }
