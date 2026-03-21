@@ -4,13 +4,14 @@ namespace App\Repositories\BookingRepo;
 
 use App\Models\Booking;
 use Exception;
+use Illuminate\Contracts\Pagination\LengthAwarePaginator;
 use Illuminate\Support\Collection;
 
 class EloquentBookingRepo implements BookingRepoInterface
 {
-    public function getBookings(): Collection
+    public function getBookings(int $perPage): LengthAwarePaginator
     {
-        return Booking::all();
+        return Booking::paginate($perPage);
     }
 
     public function findById(int $id): Booking 

@@ -17,7 +17,9 @@ class ResourcePolicy
      */
     public function viewAny(User $user): bool
     {
-        return true;
+        $canView = $this->RBACService->hasPermission($user, 'resource', 'viewAll');
+
+        return $canView;
     }
 
     /**

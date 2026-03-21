@@ -22,7 +22,7 @@ class GetBookingsRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'user_id' => 'sometimes|numeric|exists:users,id|exists:bookings,user_id',
+            'perPage' => 'required|numeric|min:1|max:500',
         ];
     }
 }

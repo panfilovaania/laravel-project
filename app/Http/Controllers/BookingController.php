@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Dto\Booking\CreateBookingRequestDto;
 use App\Dto\Timesheet\CreateTimesheetRequestDto;
+use App\Exceptions\Operation\OperationException;
 use App\Http\Requests\CreateBookingRequest;
 use App\Http\Requests\GetBookingsRequest;
 use App\Http\Requests\UpdateBookingRequest;
@@ -15,7 +16,8 @@ use App\Services\Service\ServiceServiceInterface;
 use App\Services\Timesheet\TimesheetServiceInterface;
 use Carbon\Carbon;
 use Illuminate\Support\Facades\Auth;
-
+use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Log;
 
 class BookingController extends Controller
 {
@@ -30,9 +32,11 @@ class BookingController extends Controller
     /**
      * Display a listing of the resource.
      */
-    public function index()
+    public function index(GetBookingsRequest $request)
     {
-        $bookings = $this->bookingService->getBookings();
+        $validated = $request->validated();
+
+        $bookings = $this->bookingService->getBookings($validated['perPage']);
 
         return response()->json($bookings);
     }
@@ -62,7 +66,7 @@ class BookingController extends Controller
         
         if(!$checkAvailable)
         {
-            return response()->json('Бронирование на услугу недоступно.');
+            return response()->json('Бронирование на услугу недоступно.', 422);
         }
         
         $availableResources = $this->availabilityCheckService->getAvailableResources($service->resources()->get(), 
@@ -74,7 +78,7 @@ class BookingController extends Controller
 
         if ($availableResources->isEmpty())
         {
-            return response()->json("На данное время все места заняты. Выберите другое время");
+            return response()->json("На данное время все места заняты. Выберите другое время", 422);
         }
        
         $serviceTimesheetDto = new CreateTimesheetRequestDto(
@@ -86,45 +90,63 @@ class BookingController extends Controller
             end_time: Carbon::parse($validated['end_time']),
         ); 
 
-        $serviceTimesheet = $this->timesheetService->createTimesheet($serviceTimesheetDto);
-        
-        for ($i=0; $i < $availableResources->count(); $i++)
+        DB::beginTransaction();
+
+        try
         {
-            $start_time = Carbon::parse($validated['start_time'])->addMinutes($i*$service->duration_minutes);
-            $end_time = Carbon::parse($start_time)->addMinutes($service->duration_minutes);
-
-            foreach ($availableResources->get($i)->take($validated['persons']) as $resource)
+            $serviceTimesheet = $this->timesheetService->createTimesheet($serviceTimesheetDto);
+            
+            for ($i=0; $i < $availableResources->count(); $i++)
             {
-                $this->timesheetService->createTimesheet(
-                    new CreateTimesheetRequestDto(
-                        entity_type_id: 2,
-                        timesheet_status_id: 1,
-                        entity_id: $resource->id,
-                        date: Carbon::parse($validated['date']),
-                        start_time: $start_time,
-                        end_time: $end_time,
-                    )
-                );
-            }
-        }                                                                                
+                $start_time = Carbon::parse($validated['start_time'])->addMinutes($i*$service->duration_minutes);
+                $end_time = Carbon::parse($start_time)->addMinutes($service->duration_minutes);
 
-        $bookingDto = new CreateBookingRequestDto(
-            user_id: Auth::id(),
-            city_id: $validated['city_id'],
-            location_id: $validated['location_id'],
-            service_id: $service->id,
-            timesheet_id: $serviceTimesheet->id,
-            booking_status_id: 1,
-            date: Carbon::parse($validated['date']),
-            start_time: Carbon::parse($validated['start_time']),
-            end_time: Carbon::parse($validated['end_time']),
-            persons: $validated['persons'],
-            total_price: $service->price*$validated['persons']
-        ); 
+                foreach ($availableResources->get($i)->take($validated['persons']) as $resource)
+                {
+                    $this->timesheetService->createTimesheet(
+                        new CreateTimesheetRequestDto(
+                            entity_type_id: 2,
+                            timesheet_status_id: 1,
+                            entity_id: $resource->id,
+                            date: Carbon::parse($validated['date']),
+                            start_time: $start_time,
+                            end_time: $end_time,
+                        )
+                    );
+                }
+            }                                                                                
 
-       $createdBooking = $this->bookingService->createBooking($bookingDto);
+            $bookingDto = new CreateBookingRequestDto(
+                user_id: Auth::id(),
+                city_id: $validated['city_id'],
+                location_id: $validated['location_id'],
+                service_id: $service->id,
+                timesheet_id: $serviceTimesheet->id,
+                booking_status_id: 1,
+                date: Carbon::parse($validated['date']),
+                start_time: Carbon::parse($validated['start_time']),
+                end_time: Carbon::parse($validated['end_time']),
+                persons: $validated['persons'],
+                total_price: $service->price*$validated['persons']
+            );
 
-        return response()->json($createdBooking);
+            $createdBooking = $this->bookingService->createBooking($bookingDto);
+
+            DB::commit();
+            
+            Log::channel('booking')->info('Бронирование успешно создано', ['booking_id' => $createdBooking->id]);
+
+            return response()->json($createdBooking);
+        }
+        catch (\Exception $e) {
+            DB::rollBack();
+
+            Log::channel('booking')->error("Ошибка при cоздании бронирования: ", [
+                'message' => $e
+            ]);
+
+            throw new OperationException("Не удалось создать бронирование");
+        }
     }
 
     /**

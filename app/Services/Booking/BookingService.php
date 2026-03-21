@@ -8,6 +8,7 @@ use App\Models\Booking;
 use App\Models\User;
 use App\Repositories\BookingRepo\BookingRepoInterface;
 use App\Services\Timesheet\TimesheetServiceInterface;
+use Illuminate\Contracts\Pagination\LengthAwarePaginator;
 use Illuminate\Support\Collection;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Log;
@@ -19,9 +20,9 @@ class BookingService implements BookingServiceInterface
                                 )
     {}
 
-    public function getBookings(): Collection
+    public function getBookings(int $perPage): LengthAwarePaginator
     {
-        return $this->bookingRepo->getBookings();
+        return $this->bookingRepo->getBookings($perPage);
     }
 
     public function getBookingById(int $id): Booking
