@@ -6,8 +6,6 @@ use App\Models\Booking;
 use App\Models\User;
 use App\Services\RBAC\RBACServiceInterface;
 use App\Services\User\UserServiceInterface;
-use Illuminate\Auth\Access\Response;
-use Illuminate\Support\Facades\Auth;
 
 class BookingPolicy
 {
@@ -61,7 +59,9 @@ class BookingPolicy
      */
     public function create(User $user): bool
     {
-        return true;
+        $canCreate = $this->RBACService->hasPermission($user, 'booking', 'create');
+
+        return $canCreate;
     }
 
     /**

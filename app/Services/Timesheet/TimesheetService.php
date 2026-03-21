@@ -5,6 +5,7 @@ namespace App\Services\Timesheet;
 use App\Dto\Timesheet\CreateTimesheetRequestDto;
 use App\Exceptions\Operation\OperationException;
 use App\Models\Booking;
+use App\Models\Service;
 use App\Models\Timesheet;
 use App\Repositories\TimesheetRepo\TimesheetRepoInterface;
 use App\Services\Service\ServiceServiceInterface;
@@ -108,7 +109,7 @@ class TimesheetService implements TimesheetServiceInterface
                 return false;
             }
             
-            $canceledResourceTimesheet = $this->cancelResourceTimesheets($booking, $resources);
+            $canceledResourceTimesheet = $this->cancelResourceTimesheets($booking, $service, $resources);
             
             if (!$canceledResourceTimesheet)
             {
@@ -132,7 +133,7 @@ class TimesheetService implements TimesheetServiceInterface
     private function cancelServiceTimesheet(Booking $booking): bool
     {
         $timesheet = $this->timesheetRepo->getTimesheetsByFilters([
-            'entity_type' => 1,
+            'entity_type_id' => 1,
             'entity_id' => $booking->service_id,
             'date' => $booking->date,
             'start_time' => $booking->start_time,
@@ -158,11 +159,9 @@ class TimesheetService implements TimesheetServiceInterface
         return true;
     }
 
-    private function cancelResourceTimesheets(Booking $booking, $resources): bool
+    private function cancelResourceTimesheets(Booking $booking, Service $service, $resources): bool
     {
         $allCancelled = true;
-
-        $service = $this->serviceService->getServiceById($booking->service_id);
 
         $totalMinutes = Carbon::parse($booking->start_time)->diffInMinutes(Carbon::parse($booking->end_time));
 
@@ -176,7 +175,7 @@ class TimesheetService implements TimesheetServiceInterface
             $end_time = Carbon::parse($start_time)->addMinutes($service->duration_minutes);
 
             $resourcesTimesheets = $this->timesheetRepo->getTimesheetsByFilters([
-                'entity_type' => 2,
+                'entity_type_id' => 2,
                 'timesheet_status_id' => 1,
                 'date' => $booking->date,
                 'start_time' => $start_time,

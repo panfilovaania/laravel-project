@@ -14,6 +14,11 @@ class RBACService implements RBACServiceInterface
             ['action', $action]
         ])->first();
 
+        if (!$permission)
+        {
+            return false;
+        }
+
         $roleIds = $permission->roles()->pluck('role_id');
 
         $hasRole = $user->roles()
